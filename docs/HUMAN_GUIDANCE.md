@@ -18,6 +18,9 @@ origin belongs there too. Rules: [REPO_STYLE.md](REPO_STYLE.md).
 - Never pin dependency versions. Use current releases and open-ended `>=` minimums.
 
 - For the README motion preview, use animated WebP instead of GIF.
+- I want actual transparency in animated WebP, with tighter framing around each protein.
+- I approved the ATP synthase motor proposal: a fixed camera, rotor moving against stator,
+  membrane context, a shaft-revealing cutaway, and a few labels.
 
 - Show the existing verified animation examples in the README and let their previews loop
   continuously.
@@ -27,3 +30,6 @@ origin belongs there too. Rules: [REPO_STYLE.md](REPO_STYLE.md).
 - Use the sibling goodsell-oxillustrate-rs project as our gold standard method and canonical
   renderer for Goodsell figures and animations. Start with stills and GroEL; retain Mol* for
   surfaces and interactive views, and leave the existing hexokinase example unchanged.
+
+- The current hexokinase protein is too transparent to see movement; make it more opaque so
+  closure is clearer.

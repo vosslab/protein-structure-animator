@@ -5,15 +5,22 @@ interfaces; there is no common scene language or renderer API.
 
 | Capability | Guide | Local evidence |
 | --- | --- | --- |
-| Canonical Goodsell figures and animations | [OXILLUSTRATE.md](tools/OXILLUSTRATE.md) | 3N0G still and GroEL integration |
+| Canonical Goodsell figures and animations | [OXILLUSTRATE.md](tools/OXILLUSTRATE.md) | 3N0G still, GroEL rotation and authored ATP motor |
 | Historical Fortran reference | [ILLUSTRATE.md](tools/ILLUSTRATE.md) | Earlier scripted 3N0G still |
 | Smooth surfaces, interactive views and retained illustrated spheres | [MOLSTAR.md](tools/MOLSTAR.md) | 3N0G comparison and animation examples |
 | Align structures and interpolate conformations | [CHIMERAX.md](tools/CHIMERAX.md) | Matched hexokinase endpoints and trajectory |
 | Encode teaching media | [MEDIA.md](tools/MEDIA.md) | Five-second MP4, WebP and GIF from 125 frames |
 
+The accepted [atp_synthase_alpha.md](archive/atp_synthase_alpha.md) adds a rigid-rotor
+motor illustration, native transparent sources and tighter gallery framing. Native rendering,
+coordinate checks and decoded gallery-alpha evidence are recorded; follow its
+[atp_synthase_alpha.md](active_plans/workstreams/atp_synthase_alpha.md) ledger for current evidence;
+the historical still/GroEL integration retains its separate recorded scope.
+
 Start with [examples/appearance_3n0g/README.md](../examples/appearance_3n0g/README.md),
-[examples/hexokinase_closure/README.md](../examples/hexokinase_closure/README.md), or
-[examples/groel_rotation/README.md](../examples/groel_rotation/README.md).
+[examples/hexokinase_closure/README.md](../examples/hexokinase_closure/README.md),
+[examples/groel_rotation/README.md](../examples/groel_rotation/README.md), or
+[examples/atp_synthase_motor/README.md](../examples/atp_synthase_motor/README.md).
 See [ANIMATION_GUIDANCE.md](ANIMATION_GUIDANCE.md) for scientific and delivery checks.
 
 ## Install only what you use

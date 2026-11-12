@@ -8,18 +8,26 @@ const example = process.argv[2];
 if (!["appearance_3n0g", "hexokinase_closure", "groel_rotation"].includes(example)) {
   throw new Error("Choose appearance_3n0g, hexokinase_closure, or groel_rotation");
 }
-const output = path.resolve("output", example);
+const alpha = process.argv[3] === "--alpha";
+if (process.argv.length > 4 || (process.argv[3] && !alpha)) {
+  throw new Error("The only optional argument is --alpha");
+}
+if (alpha && example !== "hexokinase_closure") {
+  throw new Error("--alpha is available for hexokinase_closure");
+}
+const source = path.resolve("output", example);
+const output = alpha ? `${source}_alpha` : source;
 const started = Date.now();
 await fs.mkdir(path.join(output, "frames"), { recursive: true });
 const input =
   example === "appearance_3n0g"
-    ? `${output}/selected.cif`
+    ? `${source}/selected.cif`
     : example === "hexokinase_closure"
-      ? `${output}/protein_loop.pdb`
+      ? `${source}/protein_loop.pdb`
       : "output/inputs/1oel_assembly1.cif";
 const coordinates = await fs.readFile(input, "utf8");
 const ligand =
-  example === "hexokinase_closure" ? await fs.readFile(`${output}/glucose.cif`, "utf8") : null;
+  example === "hexokinase_closure" ? await fs.readFile(`${source}/glucose.cif`, "utf8") : null;
 const browser = await chromium.launch({ headless: true });
 try {
   const page = await browser.newPage({ viewport: { width: 640, height: 640 } });
@@ -28,7 +36,7 @@ try {
   await page.addStyleTag({ path: "node_modules/molstar/build/viewer/molstar.css" });
   await page.addScriptTag({ path: "node_modules/molstar/build/viewer/molstar.js" });
   const initial = await page.evaluate(
-    async ({ coordinates, ligand, example }) => {
+    async ({ coordinates, ligand, example, alpha }) => {
       const viewer = await molstar.Viewer.create("viewer", {
         layoutIsExpanded: false,
         layoutShowControls: false,
@@ -60,7 +68,7 @@ try {
         await plugin.builders.structure.representation.addRepresentation(protein, {
           type: surface ? "molecular-surface" : "spacefill",
           typeParams: {
-            alpha: surface ? 0.42 : 1,
+            alpha: surface ? 0.75 : 1,
             resolution: 1,
             quality: "custom",
             ignoreLight: true,
@@ -152,7 +160,7 @@ try {
       window.shot.behaviors.values.next({
         ...window.shot.values,
         resolution: { name: "custom", params: { width: 640, height: 640 } },
-        transparent: false,
+        transparent: alpha,
         axes: { name: "off", params: {} },
       });
       // FXAA and occlusion retain readable contours without 16 repeated renders per frame.
@@ -170,7 +178,7 @@ try {
         ),
       };
     },
-    { coordinates, ligand, example },
+    { coordinates, ligand, example, alpha },
   );
   console.log(initial);
   if (
@@ -291,6 +299,7 @@ try {
         renderedFrames: count,
         browser: browser.version(),
         dimensions: [640, 640],
+        transparentBackground: alpha,
         elapsedSeconds: (Date.now() - started) / 1000,
       },
       null,

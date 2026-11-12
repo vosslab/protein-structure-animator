@@ -13,6 +13,7 @@ import collections
 
 # PIP3 modules
 import numpy
+import PIL.Image
 import Bio.PDB.MMCIF2Dict
 
 
@@ -76,12 +77,32 @@ def sha256(filename: pathlib.Path) -> str:
 
 
 #============================================
+def restore_canvas(filename: pathlib.Path, bounds_path: pathlib.Path, alpha: bool) -> None:
+	"""Reinsert the native trimmed pixels at their original raster position."""
+	bounds = json.loads(bounds_path.read_text())
+	canvas = tuple(bounds['canvas'])
+	left, top = bounds['crop_origin']
+	with PIL.Image.open(filename) as image:
+		if canvas != (640, 640) or left < 0 or top < 0:
+			raise ValueError(f'Unexpected native canvas metadata: {bounds}')
+		if left + image.width > canvas[0] or top + image.height > canvas[1]:
+			raise ValueError(f'Native crop exceeds its canvas: {bounds}, {image.size}')
+		background = (0, 0, 0, 0) if alpha else (255, 255, 255)
+		frame = PIL.Image.new('RGBA' if alpha else 'RGB', canvas, background)
+		# No mask: copying straight RGBA preserves the native coverage exactly.
+		frame.paste(image.convert('RGBA'), (left, top))
+		frame.save(filename, dpi=(300, 300))
+
+
+#============================================
 def main() -> None:
 	parser = argparse.ArgumentParser(description=__doc__)
 	root = pathlib.Path(subprocess.check_output(['git', 'rev-parse', '--show-toplevel'],
 		cwd=pathlib.Path(__file__).resolve().parent, text=True).strip())
 	parser.add_argument('-i', '--illustrate', type=pathlib.Path,
 		default=root.parent / 'goodsell-oxillustrate-rs/target/release/illustrate')
+	parser.add_argument('-a', '--alpha', dest='alpha', action='store_true',
+		help='Render transparent presentation frames in output/groel_rotation_alpha')
 	args = parser.parse_args()
 	binary = args.illustrate.resolve()
 	if not binary.is_file() or not os.access(binary, os.X_OK):
@@ -94,8 +115,11 @@ def main() -> None:
 	origin, scale, depth = fixed_framing(coordinates)
 	template_path = pathlib.Path(__file__).with_name('oxillustrate.json')
 	template = json.loads(template_path.read_text())
+	if args.alpha:
+		template['background'] = None
 	# ASVS 5.3.2: all generated names are fixed, repository-owned output paths.
-	output = root / 'output/groel_rotation_oxillustrate'
+	output_name = 'groel_rotation_alpha' if args.alpha else 'groel_rotation_oxillustrate'
+	output = root / 'output' / output_name
 	frames, scenes = output / 'frames', output / 'scenes'
 	frames.mkdir(parents=True, exist_ok=True)
 	scenes.mkdir(exist_ok=True)
@@ -114,10 +138,13 @@ def main() -> None:
 			scene['framing'] = {'center': center.tolist(), 'scale': scale, 'margin': 30}
 			scene_path = scenes / f'frame_{index:03d}.json'
 			scene_path.write_text(json.dumps(scene, indent=2) + '\n')
+			frame_path = frames / f'frame_{index:03d}.png'
+			bounds_path = scenes / f'frame_{index:03d}_bounds.json'
 			# ASVS 1.2.5: native command and paths are separate argv entries, never shell text.
 			subprocess.run([str(binary), str(source), '--scene', str(scene_path),
-				'--output', str(frames / f'frame_{index:03d}.png')],
+				'--output', str(frame_path), '--metadata', str(bounds_path)],
 				check=True, stdout=log, stderr=log)
+			restore_canvas(frame_path, bounds_path, args.alpha)
 			print(f'Rendered {index + 1}/125', flush=True)
 	if sha256(source) != input_hash or sha256(binary) != binary_hash:
 		raise ValueError('Input or renderer changed during rendering; repeat with stable files')
@@ -126,6 +153,7 @@ def main() -> None:
 		'version': subprocess.check_output([str(binary), '--version'], text=True).strip(),
 		'template_sha256': sha256(template_path), 'counts': counts, 'frames': 125,
 		'fps': 25, 'seconds': 5, 'dimensions': [640, 640],
+		'transparent_background': args.alpha,
 		'motion': 'rigid viewpoint rotation; no conformational change or measured kinetics',
 		'origin_angstrom': origin.tolist(), 'scale_pixels_per_angstrom': scale,
 		'depth_angstrom': depth, 'wall_seconds': time.monotonic() - started}

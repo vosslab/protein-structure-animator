@@ -26,6 +26,19 @@ Outputs live in `output/hexokinase_closure/`: `animation.webp`, `animation.gif`,
 `protein_loop.pdb`, independent in-memory `coordinates.npy`, selections in `preparation.json`,
 render settings/evidence in `render.json`, and PNG frames. These generated files are ignored by Git.
 
+For the transparent gallery variant, reuse those prepared inputs:
+
+```bash
+node examples/render_molstar.mjs hexokinase_closure --alpha
+```
+
+This writes to `output/hexokinase_closure_alpha/`, preserving the original preparation and opaque
+deliveries. Mol* exports native true-alpha PNGs with a fixed 640 by 640 camera canvas. The gallery
+uses one union crop across all 125 frames and a fixed 2:3 canvas. The protein surface uses opacity
+0.75 for more defined blue lobes over light and dark backgrounds. Glucose is bright magenta while
+open, increasingly occluded during closure, and a faint purple trace when closed. Both rendering
+commands use the same protein opacity; `--alpha` selects the transparent background and output.
+
 ## Scientific sources and selections
 
 Retrieved 2026-11-11 from RCSB: [3O80](https://www.rcsb.org/structure/3O80), open state with an ATP
@@ -66,8 +79,9 @@ endpoint, versus 2.57 at closure. This short open-state contact is a limitation 
 closed-state ligand in the open protein, not evidence of a physical complex. Do not use these
 intermediates for interaction energies or mechanistic inference.
 
-Mol* renders a pale blue smooth molecular surface at alpha 0.42 over magenta glucose, on white.
-Transparency keeps the ligand visible through closure, with overlapping front/back surface detail.
+Mol* renders a pale blue smooth molecular surface at opacity 0.75 over magenta glucose. The
+historical white-background deliveries retain their previously verified opacity 0.42. The current
+opacity prioritizes lobe movement while reducing the ligand to a faint trace at closure.
 The camera, scale and orthographic projection stay fixed. Native settings are in
 [render_molstar.mjs](../render_molstar.mjs) and the saved Mol* state.
 

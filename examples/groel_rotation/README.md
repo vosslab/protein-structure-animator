@@ -28,6 +28,19 @@ Outputs in `output/groel_rotation_oxillustrate/` include primary `animation.webp
 The previous Mol* route remains available with `node examples/render_molstar.mjs groel_rotation`
 and outputs to `output/groel_rotation/`; existing Mol* media are preserved.
 
+For the transparent gallery variant, run:
+
+```bash
+source source_me.sh && python3 examples/groel_rotation/render_oxillustrate.py --alpha
+```
+
+This writes 125 true-alpha PNG frames to `output/groel_rotation_alpha/frames/`, with native
+`background: null`. Current native rendering always trims; the helper requests `--metadata`, then
+copies each native crop at its exact `crop_origin` into the original 640 by 640 canvas without
+resampling. Each `scenes/frame_*_bounds.json` retains that native offset. The gallery derives one
+fixed union crop from all 125 frames and presents them in one 4:3 canvas. Historical opaque media
+remain under `output/groel_rotation_oxillustrate/`.
+
 ## Structure and assembly
 
 Retrieve [1OEL](https://www.rcsb.org/structure/1OEL) **biological assembly 1**, using RCSB's expanded
@@ -57,7 +70,7 @@ and fixed y/z angles 25/0 degrees. Native x is the vertical raster axis.
 The final sample precedes the first by one ordinary angular step; there is no duplicated 360-degree
 frame. Original molecular coordinates stay fixed. One bounding-sphere radius fixes orthographic
 scale and safe negative depth for the entire turn. Each scene's subtracted rotated center maps
-the same molecular origin to the same image point. Explicit `trim: false` retains 640 by 640
+the same molecular origin to the same image point. Native crop metadata restores 640 by 640
 pixels. Equal fog endpoints disable frame-dependent fog normalization; shadows and outlines stay
 fixed.
 

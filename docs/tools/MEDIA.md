@@ -18,16 +18,43 @@ with even dimensions. It writes H.264 MP4 with yuv420p and faststart, lossless a
 palette GIF, and a static WebP poster. At 25 fps each frame occupies 40 ms, giving five seconds.
 GIF and WebP request infinite looping; an MP4 player must enable repeat separately.
 
+Animated WebP and its poster retain source alpha. MP4 and GIF explicitly composite onto white
+before encoding; neither is the transparent delivery. Use native transparent source frames rather
+than removing white from opaque molecular images. The real-codec regression command is
+`source source_me.sh && python3 tests/e2e/e2e_encode_alpha.py`; its synthetic 125-frame probe
+checks exact decoded WebP/poster RGBA, opaque GIF, and white-composited MP4. See
+[atp_synthase_encoder.md](../active_plans/reports/atp_synthase_encoder.md) for measured limits.
+Native ATP delivery also verifies exact alpha, exact RGB wherever alpha is nonzero and exact
+light/dark composites. Lossless WebP can normalize invisible RGB under alpha zero; raw RGBA
+identity at fully transparent pixels is not promised for native sources.
+
+Transparent source examples use `output/groel_rotation_alpha/frames` and
+`output/hexokinase_closure_alpha/frames`; ATP uses `output/atp_synthase_motor/frames`.
+The gallery uses 60 samples totaling five seconds at 12 fps average, quality-90 color and exact
+source alpha. Fixed canvases are 480 x 720 ATP, 640 x 480 GroEL and 360 x 540 hexokinase. See
+[atp_synthase_gallery.md](../active_plans/reports/atp_synthase_gallery.md) for crops and checks.
+A preview uses one union crop across the full motion, including outlines and labels, with one
+fixed aspect and scale. Paste RGBA without an extra mask: applying alpha twice changes edge
+coverage. Inspect all decoded frames and composites over light
+and dark backgrounds. Actual browser motion, reduced-motion fallback and replay remain separate
+acceptance checks; a synthetic codec pass does not establish them.
+
 The helper overwrites these generated media files in the frame directory's parent. Preserve edits
 elsewhere. Keep the input frames and native sessions until delivery and reproduction checks pass.
 Modern FFmpeg versions can differ in animated WebP decoding; Pillow is also used to inspect frame
 count and per-frame durations. GIF palette conversion can introduce color changes and larger files.
 
 The canonical GroEL frames come from [OXILLUSTRATE.md](OXILLUSTRATE.md). The retained Mol*
-alternative uses `output/groel_rotation/frames`. New Rust media passed Chromium WebP, GIF and MP4
-motion checks, including a natural MP4 loop, and actual LibreOffice 26.2.7.3 MP4 slideshow motion.
+alternative uses `output/groel_rotation/frames`. The historical Rust integration passed Chromium
+WebP, GIF and MP4 motion checks, including a natural MP4 loop, and actual LibreOffice 26.2.7.3
+MP4 slideshow motion.
 Exact Impress pacing and new animated WebP insertion were not tested. The GIF/blank-WebP Impress
 observations below describe the earlier Mol* outputs.
+
+The current [atp_synthase_playback.md](../active_plans/reports/atp_synthase_playback.md) records
+actual Chromium/Firefox alpha gallery motion, reduced-motion posters and responsive layout PASS,
+plus visible new ATP MP4 motion in a real Impress slideshow. These application checks do not
+measure exact display pacing or establish animated WebP/alpha support in Impress.
 
 ## Check each delivery separately
 

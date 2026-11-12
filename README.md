@@ -8,44 +8,65 @@ animations, and Mol* for smooth molecular surfaces and interactive views.
 <!-- screenshots:begin (managed by screenshot-docs) -->
 ## Animation gallery
 
+### ATP synthase: see the motor
+
+<a href="examples/atp_synthase_motor/README.md">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)"
+      srcset="docs/screenshots/atp_synthase_motor_poster.webp">
+    <img src="docs/screenshots/atp_synthase_motor.webp" width="360"
+      alt="Rust Goodsell ATP synthase rotor turns inside a fixed stator cutaway across a membrane">
+  </picture>
+</a>
+
+ATP synthase couples rotation to ATP production. This authored Rust Goodsell
+illustration turns the rotor against a fixed stator; a cutaway exposes the shaft. The camera stays
+fixed. It illustrates neither measured kinetics, validated steric motion nor the full reaction.
+Try: "Turn the ATP synthase rotor inside a fixed stator, exposing the shaft through a cutaway."
+Reproduce: [examples/atp_synthase_motor/README.md](examples/atp_synthase_motor/README.md) |
+[Transparent WebP](docs/screenshots/atp_synthase_motor.webp) |
+[Static poster](docs/screenshots/atp_synthase_motor_poster.webp).
+
 ### GroEL: see the assembly
 
 <a href="examples/groel_rotation/README.md">
   <picture>
     <source media="(prefers-reduced-motion: reduce)"
-      srcset="docs/screenshots/groel_rotation_poster.webp">
-    <img src="docs/screenshots/groel_rotation_demo.webp" width="640"
+      srcset="docs/screenshots/groel_rotation_alpha_poster.webp">
+    <img src="docs/screenshots/groel_rotation_alpha.webp" width="640"
       alt="Rust Goodsell view rotates the complete fourteen-subunit GroEL assembly">
   </picture>
 </a>
 
-The complete fourteen-subunit chaperonin provides a compartment for protein folding. This
-**16:9 widescreen** Rust Goodsell loop changes viewpoint only; it shows neither GroES nor a folding
-cycle.
-Try: "Rotate the complete GroEL assembly once, keeping the chain colors and white background."
+The complete fourteen-subunit chaperonin provides a compartment for protein folding. This Rust
+Goodsell loop changes viewpoint only; it shows neither GroES nor a folding cycle.
+Try: "Rotate the complete GroEL assembly once, keeping its chain colors and a transparent background."
 Reproduce: [examples/groel_rotation/README.md](examples/groel_rotation/README.md) |
-[Static poster](docs/screenshots/groel_rotation_poster.webp).
+[Transparent WebP](docs/screenshots/groel_rotation_alpha.webp) |
+[Static poster](docs/screenshots/groel_rotation_alpha_poster.webp).
 
 ### Hexokinase: see the closure
 
 <a href="examples/hexokinase_closure/README.md">
   <picture>
     <source media="(prefers-reduced-motion: reduce)"
-      srcset="docs/screenshots/hexokinase_closure_poster.webp">
-    <img src="docs/screenshots/hexokinase_closure_loop.webp" width="240"
+      srcset="docs/screenshots/hexokinase_closure_alpha_poster.webp">
+    <img src="docs/screenshots/hexokinase_closure_alpha.webp" width="360"
       alt="Mol* transparent hexokinase surface closes and reopens around fixed magenta glucose">
   </picture>
 </a>
 
-Hexokinase's lobes close around glucose: a teaching illustration of induced fit. This **phone-style
-portrait** Mol* loop interpolates experimental protein endpoints around a fixed, staged glucose
+Hexokinase's lobes close around glucose: a teaching illustration of induced fit. This Mol* loop
+interpolates experimental protein endpoints around a fixed, staged glucose
 pose; it is not a measured binding path or a catalytic cycle.
 Try: "Show hexokinase closing and reopening, with glucose visible through the surface."
 Reproduce: [examples/hexokinase_closure/README.md](examples/hexokinase_closure/README.md) |
-[Static poster](docs/screenshots/hexokinase_closure_poster.webp).
+[Transparent WebP](docs/screenshots/hexokinase_closure_alpha.webp) |
+[Static poster](docs/screenshots/hexokinase_closure_alpha_poster.webp).
 
-Both previews loop continuously over five seconds. Reduced-motion preferences select the matching
-static posters; the poster links also work independently.
+All three transparent previews loop continuously over five seconds. Reduced-motion preferences
+select matching static posters; the poster links also work independently. Each clip keeps one
+fixed canvas and protein scale through the complete motion.
 
 ### Appearance options
 
@@ -70,16 +91,17 @@ In order: **Rust oxillustrate spheres** (canonical Goodsell), **Mol\* spheres**,
 Reproduce: [examples/appearance_3n0g/README.md](examples/appearance_3n0g/README.md).
 <!-- screenshots:end -->
 
-The [gallery capture record](docs/active_plans/reports/animation_gallery_capture.md) records preview
-framing, timing and source preservation. Full-quality example deliveries remain 640 x 640 at 25 fps;
-these README previews use smaller, fixed-aspect canvases at 12 fps.
+The [gallery capture record](docs/active_plans/reports/atp_synthase_gallery.md) records transparent
+preview framing, timing and source preservation. Each README preview uses one fixed aspect ratio
+at 12 fps; the native examples retain their separately documented canvases at 25 fps.
 
 ## What you can make
 
 - Compare illustrated atom spheres with a smooth molecular surface using the 3N0G example.
 - Show an explicitly staged interpolation between matched experimental hexokinase structures.
 - Rotate the complete GroEL biological assembly without changing its coordinates.
-- Render five-second, 640 x 640 media as MP4, GIF, and animated WebP, with posters and editable native scenes.
+- Illustrate an ATP synthase rotor turning inside a stationary cutaway housing.
+- Render five-second MP4, GIF and animated WebP media, with transparent WebP, posters and native scenes.
 - Reproduce the preparation, rendering, encoding, and verification steps from documented inputs.
 
 ## Quick start: render the GroEL assembly
@@ -108,6 +130,7 @@ evidence are recorded separately in the
 
 ## Choose an example
 
+- [ATP synthase motor](examples/atp_synthase_motor/README.md): stage rotor motion against a stationary cutaway housing with a fixed camera and schematic membrane.
 - [GroEL rotation](examples/groel_rotation/README.md): render the complete biological assembly and inspect its structural selections and rotation.
 - [Hexokinase closure](examples/hexokinase_closure/README.md): prepare matched experimental structures with ChimeraX, then render the explicitly interpolated teaching illustration.
 - [3N0G appearance comparison](examples/appearance_3n0g/README.md): render the canonical Rust still alongside the historical Fortran and Mol* comparison.
@@ -128,8 +151,9 @@ evidence are recorded separately in the
 The GroEL quick start needs Rust/Cargo for the external renderer build, Python 3 with declared dependencies, and FFmpeg. Node.js and Playwright Chromium are needed for the retained Mol* route. The appearance and hexokinase examples need their separately documented tools. ChimeraX is distributed under separate terms that distinguish noncommercial and commercial use; check its current license for your use. No external application is bundled. Tested versions and specific software behavior are recorded in the examples and reports.
 
 The hexokinase illustration places closed-state glucose in the open-state structure, where a short
-contact is documented; its intermediate conformations are geometric constructs. GroEL shows the
-deposited construct and a viewpoint rotation. Use MP4 for the verified Impress slideshow route;
+contact is documented; its intermediate conformations are geometric constructs. ATP synthase uses
+authored rigid rotor motion with a stator cutaway; it establishes neither steric clearance, kinetics
+nor a catalytic cycle. GroEL shows the deposited construct and a viewpoint rotation. Use MP4 for the verified Impress slideshow route;
 earlier Mol* animated WebP image insertion was blank. Read each example's structure and limitation
 notes before reusing its media scientifically.
 

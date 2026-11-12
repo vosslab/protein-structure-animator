@@ -6,12 +6,17 @@ the agent chooses tools for the requested representation, science and delivery.
 
 Use the native Rust CLI from sibling `goodsell-oxillustrate-rs` as the canonical renderer and visual
 gold standard for Goodsell figures and animations. See [OXILLUSTRATE.md](tools/OXILLUSTRATE.md).
-Mol* remains the route for smooth surfaces and interactive views; existing hexokinase work stays
-unchanged. The initial Rust integration covers the 3N0G still and complete GroEL rotation. Adoption
-is a human decision, while rendered quality, fidelity and delivery remain separately checked.
+Mol* remains the route for smooth surfaces and interactive views. Preserve hexokinase's scientific
+preparation and motion when adding transparent delivery. The initial Rust integration covers the
+3N0G still and complete GroEL rotation; the ATP example adds authored rigid-rotor staging.
+Adoption is a human decision, while rendered quality, fidelity and delivery remain separately checked.
 Expose an upstream gap with a bounded reproducer rather than silently switching renderer.
 Use current source as the authority for native framing semantics; retain one rotation origin,
-scale and depth-safe framing across frames, and disable trimming for exact animation dimensions.
+scale and depth-safe framing across frames. Native Rust output always trims. Reconstruct a fixed
+RGBA canvas from native crop-origin metadata; never independently recenter trimmed frames or
+restore the obsolete `trim:false` scene key. Preserve native alpha rather than inferring it from
+white pixels. Use one whole-motion union crop, including outlines and labels, with fixed padding
+and one aspect per clip. Flatten MP4 and GIF explicitly onto white; retain alpha in WebP/posters.
 
 1. Identify the protein, experimental states or trajectory, biological assembly, intended teaching
    point and requested media. Verify primary structural records rather than trusting a familiar PDB
@@ -21,7 +26,9 @@ scale and depth-safe framing across frames, and disable trimming for exact anima
    Keep an entire requested assembly; change renderer when legacy formats cannot preserve it.
 3. Choose a scientific motion class: changing viewpoint, experimental endpoint interpolation,
    simulation, predicted mode or authored staging. State the classification beside the delivery.
-   Interpolation and selected playback speed establish neither a pathway nor kinetics.
+   Interpolation and selected playback speed establish neither a pathway nor kinetics. Disclose
+   frozen-head clashes in authored rotor motion. Require a camera transform determinant of +1:
+   preserved distances alone do not rule out mirrored molecular handedness.
 4. Prefer native algorithms and commands. Check actual coordinate handoffs for atom identities,
    coordinates, frame count and ligand registration. Compare the imported result, not merely the
    exporter return code. Treat unmatched ligands separately from protein morphing.

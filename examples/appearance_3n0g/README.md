@@ -22,7 +22,9 @@ mkdir -p output/appearance_3n0g/oxillustrate
 ```
 
 Native [oxillustrate.json](oxillustrate.json) retains the canonical settings. The CLI reads the
-prepared mmCIF directly, with no PDB conversion, and writes a 640 by 640 opaque PNG. The preview is
+prepared mmCIF directly, with no PDB conversion. The scene declares a 640 by 640 opaque canvas;
+the current CLI trims the output to content, so the written PNG dimensions can differ. Retained
+assets were not rerendered for this compatibility correction. The preview is
 [oxillustrate_preview.webp](oxillustrate_preview.webp). The existing [prepare.py](prepare.py)
 owns coordinate selection and ligand-facing orientation. It does not rebuild missing residues.
 
@@ -50,7 +52,7 @@ hash in [input_hashes.sha256](../input_hashes.sha256).
 every alternate-location child before selecting a conformer; transforming only a Biopython
 DisorderedAtom wrapper left some atoms at their old locations in an early rejected experiment.
 PDB and mmCIF exports use the same selection. The native illustrated-sphere axis convention uses
-90 degrees about z to match the Mol* view. The renders use 640 by 640 pixels, blue protein,
+90 degrees about z to match the Mol* view. Historical renders use 640 by 640 pixels, blue protein,
 magenta DST and green Mg. The Rust scene keeps native sphere radii, shadows and contours, with
 equal fog endpoints and no transparency or cutaway. Only exposed ligand/ion surfaces are visible.
 

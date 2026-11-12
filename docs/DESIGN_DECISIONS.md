@@ -25,18 +25,71 @@ authoritative code or contract document, rather than a person.
 ### Fixed-aspect README motion previews
 
 **Decision.** Present existing verified examples as continuous five-second WebP previews, each
-with one fixed aspect and a matching reduced-motion poster: widescreen GroEL and phone-style
-portrait hexokinase. Retain molecular proportions and downsize-only fixed framing.
+with one fixed aspect and a matching reduced-motion poster. Current tighter framing uses 4:3
+GroEL and 2:3 hexokinase/ATP synthase. Retain molecular proportions and downsize-only fixed framing.
 
 **Why.** The human requested looping examples and varied protein-appropriate canvas shapes, with
 exactly one aspect per video.
 
 **Consequence.** The gallery derives lightweight presentation assets from existing native frames.
-Scientific motion, source coordinates, native rendering and full-quality deliveries stay owned by
-the original examples; the gallery adds no molecular or renderer capability claim.
+Scientific motion and source coordinates stay owned by the original examples. Native transparent
+rerenders use separate generated directories; retain historical gallery assets and their receipts.
+The gallery itself adds no molecular or renderer capability claim.
 
 **Owner.** [animation_gallery.md](archive/animation_gallery.md) and
 [capture_readme_visuals.py](../devel/capture_readme_visuals.py).
+
+### Preserve native alpha and registration
+
+**Decision.** Preserve native straight alpha through PNG, animated WebP and posters. Reconstruct
+fixed Rust animation canvases using the native crop origin while retaining unconditional trimming.
+Use one whole-motion union crop and padding, with fixed scale and aspect. MP4 and GIF composite
+explicitly onto white.
+
+**Why.** Native alpha preserves white atoms and outline coverage. Independently centering trimmed
+frames can introduce wobble; equal image dimensions alone do not establish registration.
+
+**Consequence.** Require the current sibling metadata interface rather than obsolete `trim:false`
+scenes. Avoid chromakey and fake structural anchors. Native GroEL and Mol* hexokinase alpha
+opt-ins write separate output directories, preserving opaque example deliveries. Verify real
+decoded RGBA, light/dark playback and fresh-process replay separately.
+
+**Owner.** [OXILLUSTRATE.md](tools/OXILLUSTRATE.md), [MEDIA.md](tools/MEDIA.md),
+[encode_loop.py](../tools/encode_loop.py) and
+[capture_readme_visuals.py](../devel/capture_readme_visuals.py).
+
+### Authored ATP synthase motor
+
+**Decision.** Use one complete 8DBU epsilon-down E. coli assembly. Rotate label chains G-R as one
+rigid rotor against a frozen head/stator and stationary ligands, with a fixed stator cutaway,
+schematic membrane and sparse labels.
+
+**Why.** Primary structural evidence supports this complete subunit assembly and compact epsilon
+state, while a simple rotor illustration makes the motor relationship visible.
+
+**Consequence.** Preserve the original input, uncut per-frame coordinates and explicit omitted-atom
+identities. Describe the engineered construct and missing residues honestly. The motion is authored
+mechanical illustration, not a sterically validated catalytic trajectory, kinetics or chemistry;
+rigid rotation through a frozen head can clash. Do not infer nucleotide conversion from head ATP.
+
+**Owner.** [atp_synthase_alpha.md](archive/atp_synthase_alpha.md) and
+[atp_synthase_science_feasibility.md](active_plans/reports/atp_synthase_science_feasibility.md).
+
+### Preserve molecular handedness in cameras
+
+**Decision.** Use a proper determinant +1 ATP camera rotation, with column equal to negative local
+x. Reject the exploratory reflected view and regenerate all coordinate handoffs before rendering.
+Display the final 480 x 720 ATP gallery canvas at 360 pixels wide in the README.
+
+**Why.** A reflected camera preserves distances but reverses molecular handedness and apparent
+rotation. Corrected native frames and teaching-size inspection support the chosen composition.
+
+**Consequence.** Check camera orientation as well as distances. Preserve the fixed cutaway, source
+axis and signed rotor motion. Keep the complete native canvas and one aspect at every display size.
+
+**Owner.** [render_oxillustrate.py](../examples/atp_synthase_motor/render_oxillustrate.py),
+[test_atp_synthase_geometry.py](../tests/test_atp_synthase_geometry.py) and
+[atp_synthase_render.md](active_plans/reports/atp_synthase_render.md).
 
 ### Documented capability collection
 

@@ -4,6 +4,17 @@
 
 ### Additions and New Features
 
+- Implement the approved 8DBU ATP synthase motor, native transparent sources and tighter three-loop
+  gallery. Preserve complete coordinates, explicit stationary cutaway identities, construct notes
+  and authored-motion/frozen-head clash limits. Render 125 corrected native ATP frames with a fixed
+  camera, membrane and sparse labels; deliver alpha WebP/poster and white MP4/GIF. Add separate
+  GroEL/Mol* alpha sources, retaining all 437 historical files. Capture three five-second gallery
+  loops with one whole-motion crop per protein, exact source alpha and reduced-motion posters.
+  Record completed rendering, science and capture evidence in
+  [atp_synthase_alpha.md](active_plans/workstreams/atp_synthase_alpha.md). Actual browser/Impress
+  playback and local fresh-process replay pass; fresh ordered specification, independent quality
+  and integration reviews pass and the manager accepts the completed outcome.
+
 - Add a README animation gallery with continuous five-second Rust GroEL and Mol* hexokinase
   WebP previews, fixed widescreen and phone-style portrait canvases, and matching reduced-motion
   posters. Follow the loops with three static 3N0G appearance options. Reuse verified PNGs without
@@ -27,6 +38,22 @@
   its superseded managed GIF; full example GIF exports remain available.
 
 ### Fixes and Maintenance
+
+- Increase hexokinase Mol* surface opacity to 0.75 so lobe closure is clearer. Keep true-alpha
+  gallery delivery, fixed camera, coordinates, timing and magenta glucose; retain historical opaque
+  files. Glucose becomes increasingly occluded and faint at closure. Record comparison and checks
+  in [hexokinase_visibility.md](active_plans/workstreams/hexokinase_visibility.md).
+
+- Close the accepted ATP synthase and alpha WebP plan after the three ordered PASS reviews.
+  Archive [atp_synthase_alpha.md](archive/atp_synthase_alpha.md) with `git mv`, update its backlinks
+  and ledger, and remove only the temporary gallery check and QA directory after confirming
+  durable log/plugin/report copies. Keep the geometry regression and real-codec end-to-end check.
+  Preserve the frozen README, six new gallery assets, product helpers and native binary.
+
+- Correct the exploratory ATP camera reflection to a determinant +1 rotation, regenerate all 250
+  coordinate handoffs and 125 native scenes, and retain a normal-lane handedness regression check.
+  Use current native crop-origin metadata without reversing unconditional trim. Remove the obsolete
+  3N0G scene trim key and correct its current CLI dimension claim; retain historical still assets.
 
 - Close the accepted README animation gallery after fresh specification, independent quality and
   integration PASS verdicts. Reconcile historical caption findings with the correction addendum,
@@ -52,6 +79,42 @@
   registry check; formatting and ESLint checks still pass without source changes.
 
 ### Developer Tests and Notes
+
+- Hexokinase visibility checks pass exact imported coordinates/identities, unchanged fixed camera
+  and crop, native/gallery alpha, 60-frame five-second infinite looping, and 152 protected hashes.
+  Actual Chromium motion continues beyond five seconds on light/dark backgrounds and the matching
+  reduced-motion poster stays static. Node syntax, lint, formatting and 96 Markdown-link checks
+  pass; full suite and Impress playback are not rerun for this appearance-only change.
+
+- ATP closeout checks pass 108 Markdown-link, README-opening, guidance-format and naming cases.
+  Eight closeout documents pass ASCII and whitespace checks; working-tree and cached diff checks
+  pass. The frozen README, six gallery assets, native executable and eight replay helpers retain
+  their recorded hashes. Only the archived plan and previously staged geometry regression are
+  staged. No render, browser capture, full-suite rerun, commit or publication is performed.
+
+- Record independent ATP/GroEL native identity, coordinate and projection PASS evidence, including
+  all 3,659,250 selected ATP spheres and zero ATP native projection error. Corrected ATP rendering
+  took 36.783 seconds and encoding 14.322 seconds. Native WebP preserves exact alpha, visible RGB
+  and light/dark composites; invisible RGB under alpha zero can be normalized. Two gallery captures
+  reproduce six new assets and README byte-for-byte; 100 focused gallery checks pass. These results
+  do not alone establish playback or reproduction. Separate actual Chromium/Firefox normal and
+  reduced-motion checks pass, as does actual Impress ATP MP4 motion with an exact embedded hash;
+  exact display pacing and Impress WebP alpha are not claimed. Preserved-input fresh replay
+  reproduces scientific handoffs, PNGs, ATP media, six gallery assets, README and capture manifest
+  exactly; elapsed fields, logs, generated saved state and independent diagnostics are separately
+  classified. Fresh ordered independent reviews pass; the manager accepts the outcome. See
+  [atp_synthase_replay.md](active_plans/reports/atp_synthase_replay.md).
+
+- ATP repository checks pass focused geometry, codec, source and JavaScript checks. The broad run
+  records 1,164 passed, 1 skipped and 2 failures: unchanged research-report Unicode and an active
+  temporary browser probe's naming violation. After owner cleanup, the affected naming gate passes
+  five checks. Preserve this separate rerun rather than reporting a green full suite. See
+  [atp_synthase_checks.md](active_plans/reports/atp_synthase_checks.md).
+
+- ATP alpha encoder evidence records 125 synthetic real-codec frames with exact decoded WebP and
+  poster RGBA, opaque white GIF/MP4 and an unchanged RGB MP4 comparison. Its 641 scoped checks
+  pass; these do not establish motor science, accepted rendering, browser/Impress playback or
+  fresh native example replay. See [atp_synthase_encoder.md](active_plans/reports/atp_synthase_encoder.md).
 
 - The corrected animation gallery's full Python lane records 1,109 passed, 1 skipped and the
   existing Unicode failure in the research report, whose bytes remain unchanged from HEAD.
