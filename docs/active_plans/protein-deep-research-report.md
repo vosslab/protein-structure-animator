@@ -4,7 +4,7 @@
 
 The most durable version of this project is **not a new molecular graphics program**. It is a curated, reproducible collection of tools, recipes, scientific conventions, and example workflows that an LLM can later assemble into an animation pipeline from a request such as:
 
-> “Show hexokinase closing around glucose using a Goodsell-style molecular surface, with glucose highlighted, a white background, and a seamless five-second loop.”
+> "Show hexokinase closing around glucose using a Goodsell-style molecular surface, with glucose highlighted, a white background, and a seamless five-second loop."
 
 That distinction matters. ChimeraX, Blender, Molecular Nodes, ProteinBlender, Mol*, MDAnalysis, ProDy, OpenMM, FFmpeg, and related packages already solve most of the individual technical problems. The missing layer is a well-documented way to decide **which scientific source to use, what type of motion is justified, how to render it, and how to record provenance**. citeturn819152search1turn317019search3turn272979search0turn697611search0turn193242search0
 
@@ -57,7 +57,7 @@ The principal drawback is licensing. ChimeraX source is publicly visible, but th
 
 VMD has a similar issue. It is free and source-available and remains excellent for MD trajectories and scripting, but its main license restricts use to academic, research, and internal business purposes unless a commercial license is negotiated. It should be treated as an optional backend, not an open-source foundation. citeturn966841search0turn966841search1
 
-PyMOL occupies an intermediate position. Schrödinger describes PyMOL as a commercial product built on an open-source foundation, with most source under a permissive license. Commercial builds add packaging, support, and proprietary functionality such as RigiMOL. A toolkit should distinguish explicitly between **Open-Source PyMOL** and Incentive PyMOL recipes. citeturn966841search5turn966841search6turn966841search9
+PyMOL occupies an intermediate position. Schrodinger describes PyMOL as a commercial product built on an open-source foundation, with most source under a permissive license. Commercial builds add packaging, support, and proprietary functionality such as RigiMOL. A toolkit should distinguish explicitly between **Open-Source PyMOL** and Incentive PyMOL recipes. citeturn966841search5turn966841search6turn966841search9
 
 For the fully open path, Blender is the strongest rendering foundation. Blender is GPL software, its rendered artwork belongs to the creator without GPL restrictions, it runs headless from the command line, and it offers programmable non-photorealistic rendering through Freestyle and other compositing tools. citeturn166789search7turn166789search8turn317019search8
 
@@ -79,11 +79,11 @@ A good toolkit should classify every animation segment into a small number of pr
 
 | Motion class | Meaning | Appropriate teaching label |
 |---|---|---|
-| Experimental structural states | Two or more experimentally solved conformations | “Structures determined experimentally” |
-| Interpolated morph | Geometric path between experimentally determined endpoints | “Interpolated transition” |
-| Normal-mode/ENM motion | Predicted low-frequency collective motion | “Predicted mode of motion” |
-| Molecular dynamics | Force-field simulation trajectory | “Molecular dynamics simulation” |
-| Hypothesis / illustrative movement | Animator-created behavior | “Illustrative model” |
+| Experimental structural states | Two or more experimentally solved conformations | "Structures determined experimentally" |
+| Interpolated morph | Geometric path between experimentally determined endpoints | "Interpolated transition" |
+| Normal-mode/ENM motion | Predicted low-frequency collective motion | "Predicted mode of motion" |
+| Molecular dynamics | Force-field simulation trajectory | "Molecular dynamics simulation" |
+| Hypothesis / illustrative movement | Animator-created behavior | "Illustrative model" |
 
 This distinction is essential because a smooth morph is visually convincing but does **not** demonstrate the physical pathway a protein actually follows. ChimeraX itself describes morphing as interpolation between input structures. citeturn830584search0
 
@@ -133,7 +133,7 @@ GroEL is ideal for testing large assemblies, camera control, and rendering rathe
 
 GroEL-GroES complexes also exist in experimentally solved bullet and football assemblies. For example, 1AON is a classic bullet complex, while 3WVL is a football-shaped GroEL-GroES2 ATP complex. citeturn822897search9turn822897search10
 
-For an initial “spinning GroEL” animation, however, no conformational modeling is needed at all. That makes it a useful control experiment for rendering quality, assembly handling, surface generation, lighting, camera paths, and output encoding.
+For an initial "spinning GroEL" animation, however, no conformational modeling is needed at all. That makes it a useful control experiment for rendering quality, assembly handling, surface generation, lighting, camera paths, and output encoding.
 
 ## Getting the Goodsell and Iwasa appearance
 
@@ -175,17 +175,17 @@ Blender's Freestyle engine can generate line-based NPR outlines, including hand-
 
 ChimeraX can get surprisingly close to the same visual vocabulary with `light soft`, ambient shadows, silhouette edges, orthographic projection, a white background, and smooth molecular surfaces. This might be sufficient for most undergraduate figures without ever opening Blender. citeturn819152search7turn830584search3turn751615search3
 
-Janet Iwasa's visual language is different. Her historical workflow commonly combined molecular structure tools such as Chimera with professional 3D animation software such as Maya and compositing software such as After Effects. Her work treats animations as “visual hypotheses,” which is an important conceptual model for your toolkit. citeturn713681search5turn713681search7
+Janet Iwasa's visual language is different. Her historical workflow commonly combined molecular structure tools such as Chimera with professional 3D animation software such as Maya and compositing software such as After Effects. Her work treats animations as "visual hypotheses," which is an important conceptual model for your toolkit. citeturn713681search5turn713681search7
 
 The open-source analogue today is essentially:
 
 ```text
 ChimeraX / Molecular Nodes / ProteinBlender
-                ↓
+                &darr;
              Blender
-                ↓
+                &darr;
         Blender compositor
-                ↓
+                &darr;
              FFmpeg
 ```
 
@@ -201,37 +201,37 @@ I would separate it into four layers:
 
 ```text
 protein-animation-toolkit/
-│
-├── tools/
-│   ├── chimerax/
-│   ├── blender/
-│   ├── molecular-nodes/
-│   ├── proteinblender/
-│   ├── illustrate/
-│   ├── molstar/
-│   ├── mdanalysis/
-│   ├── prody/
-│   └── ffmpeg/
-│
-├── workflows/
-│   ├── structure-spin/
-│   ├── two-state-morph/
-│   ├── normal-mode-motion/
-│   ├── md-trajectory/
-│   ├── ligand-binding/
-│   └── interactive-web/
-│
-├── examples/
-│   ├── hexokinase-closure/
-│   ├── groel-spin/
-│   └── ...
-│
-└── styles/
-    ├── goodsell.yaml
-    ├── goodsell-inspired.yaml
-    ├── iwasa-inspired.yaml
-    ├── textbook-flat.yaml
-    └── publication-neutral.yaml
+|
++-- tools/
+|   +-- chimerax/
+|   +-- blender/
+|   +-- molecular-nodes/
+|   +-- proteinblender/
+|   +-- illustrate/
+|   +-- molstar/
+|   +-- mdanalysis/
+|   +-- prody/
+|   +-- ffmpeg/
+|
++-- workflows/
+|   +-- structure-spin/
+|   +-- two-state-morph/
+|   +-- normal-mode-motion/
+|   +-- md-trajectory/
+|   +-- ligand-binding/
+|   +-- interactive-web/
+|
++-- examples/
+|   +-- hexokinase-closure/
+|   +-- groel-spin/
+|   +-- ...
+|
++-- styles/
+    +-- goodsell.yaml
+    +-- goodsell-inspired.yaml
+    +-- iwasa-inspired.yaml
+    +-- textbook-flat.yaml
+    +-- publication-neutral.yaml
 ```
 
 Each tool directory should contain installation information, license status, supported platforms, known bugs, tested version, example commands, and explicit statements of what it does **not** do.
@@ -335,21 +335,21 @@ The LLM's actual work would then be:
 
 ```text
 natural language
-      ↓
+      &darr;
 identify biological target
-      ↓
+      &darr;
 retrieve or choose curated structural states
-      ↓
+      &darr;
 select appropriate workflow
-      ↓
+      &darr;
 validate scientific provenance
-      ↓
+      &darr;
 generate recipe
-      ↓
+      &darr;
 execute tested backend
-      ↓
+      &darr;
 encode outputs
-      ↓
+      &darr;
 emit provenance report
 ```
 
@@ -427,24 +427,24 @@ The most sensible architecture is therefore:
 
 **Video/image encoding:** FFmpeg, with Pillow or ImageMagick for special image tasks.
 
-This approach also avoids creating a false binary choice between “ChimeraX or Blender.” They solve different stages of the problem.
+This approach also avoids creating a false binary choice between "ChimeraX or Blender." They solve different stages of the problem.
 
 A useful workflow might actually be:
 
 ```text
 PDB structures
-     ↓
+     &darr;
 ChimeraX
 alignment / chain selection / morph
-     ↓
+     &darr;
 trajectory or coordinate frames
-     ↓
+     &darr;
 Blender + Molecular Nodes / ProteinBlender
-     ↓
+     &darr;
 materials / lighting / outlines / camera
-     ↓
+     &darr;
 FFmpeg
-     ↓
+     &darr;
 MP4 + WebM + animated WebP + GIF
 ```
 
@@ -531,7 +531,7 @@ This feature may ultimately be more important educationally than any particular 
 
 The broader idea is technically feasible now because nearly every required capability already exists. The genuinely valuable contribution would be the **curated scientific workflow layer** connecting those capabilities. The recent appearance of ProteinBlender from Iwasa's own group strengthens that conclusion. Iwasa's lab has effectively reached the same architectural insight: maintaining an entire standalone animation program is expensive, while building molecular tools inside a mature 3D ecosystem is much more sustainable. citeturn713681search10turn272979search0
 
-The highest-value initial repository would therefore not say “this is the protein animation program.” It would say:
+The highest-value initial repository would therefore not say "this is the protein animation program." It would say:
 
 ```text
 Here are the reliable ways to make protein animations.

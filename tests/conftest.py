@@ -49,7 +49,10 @@ collect_ignore = ["e2e", "playwright"]
 #       "ascii_compliance": ["human_readable-*.html"],
 #       "pyflakes_code_lint": ["devel/scratch_*.py"],
 #   }
-REPO_HYGIENE_FILTERS = {}
+# ChimeraX supplies these imports in its own licensed runtime, outside pip.
+REPO_HYGIENE_FILTERS = {
+	"import_requirements": ["examples/hexokinase_closure/prepare.py"],
+}
 
 
 # === OPTIONAL_HELPERS_MENU ===

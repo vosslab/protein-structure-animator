@@ -18,4 +18,9 @@
 //   ];
 //
 // Default: no local overrides.
-export default [];
+export default [
+  {
+    files: ["examples/render_molstar.mjs"],
+    languageOptions: { globals: { window: "readonly", molstar: "readonly" } },
+  },
+];

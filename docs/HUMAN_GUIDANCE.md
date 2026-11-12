@@ -15,4 +15,5 @@ origin belongs there too. Rules: [REPO_STYLE.md](REPO_STYLE.md).
 - I like the Janet Iwasa and David Goodsell appearance and want to achieve it with free,
   open-source tools. A Rust port of Goodsell's Fortran renderer is an option worth considering.
 - I find Blender powerful, but it can be unstable enough to require a reboot on my Mac.
+- Never pin dependency versions. Use current releases and open-ended `>=` minimums.
 

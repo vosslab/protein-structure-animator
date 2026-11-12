@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Run inside ChimeraX: prepare matched endpoints and an illustrative loop."""
 
 import json
@@ -83,7 +82,10 @@ def main(session: object) -> None:
 	if forward.num_coordsets != 125:
 		raise ValueError('Expected 125 unique loop samples')
 	forward.active_coordset_id = forward.coordset_ids[0]
-	run(session, f'save {out}/protein_loop.cif models #{forward.id_string} allCoordsets true')
+	# Preserve the in-memory coordinates as independent handoff evidence.
+	numpy.save(out / 'coordinates.npy', numpy.array(frames))
+	# ChimeraX 1.10.1 mmCIF allCoordsets repeats the active frame; PDB preserves motion.
+	run(session, f'save {out}/protein_loop.pdb models #{forward.id_string} allCoordsets true')
 	run(session, f'save {out}/prepared.cxs')
 	record['atoms_per_frame'] = forward.num_atoms
 	record['frames'] = forward.num_coordsets

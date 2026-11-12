@@ -4,8 +4,13 @@ A growing toolbox for creating protein illustrations and animations for biochemi
 Documented tools and reproducible examples will help an LLM turn plain-language requests into
 scientifically defensible visual materials.
 
-**Status: research and planning.** Tool comparisons and an initial plan are available; working
-animation examples and a runnable generator are not yet implemented.
+**Status: completed examples within documented limits.** The 3N0G appearance comparison is
+demonstrated. Both the hexokinase and GroEL animations have fresh replay, media decoding, browser
+playback, and Impress GIF/MP4 slideshow evidence. Animated WebP embedded as an ODP image was blank
+in the tested Impress version. Specification, code-quality and integration reviews passed. See the
+[verification report](docs/active_plans/reports/toolbox_verification.md) and
+[archived toolbox plan](docs/archive/protein_animation_toolbox.md). This is a documented tool
+collection, not a general-purpose animation app.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
 <!-- screenshots:end -->
@@ -30,17 +35,19 @@ clearly distinguishable.
 
 ## Start here
 
-Read the [toolbox plan](docs/active_plans/active/protein_animation_toolbox.md) for the researched
-tool candidates, tradeoffs, first examples, and completion checks. The first planned milestone is
-an agent-produced hexokinase animation, followed by a GroEL rotation to demonstrate reuse.
+Start with [docs/TOOLS.md](docs/TOOLS.md) to find available native capabilities and examples. Read
+the [agent guidance](docs/ANIMATION_GUIDANCE.md) for scientific and delivery checks. The
+[archived toolbox plan](docs/archive/protein_animation_toolbox.md) and
+[execution ledger](docs/active_plans/workstreams/toolbox_execution.md) record completed acceptance
+evidence and its limits.
 
 The repository brings tools together through documentation and examples. An LLM can choose how
 to combine them; example workflows are adaptable references. Small helper scripts will fill
 demonstrated gaps in existing tools.
 
-Candidates include Illustrate, Mol*, ChimeraX, and FFmpeg, with Blender-based tools as optional
-alternatives. Blender is not required for a Goodsell-style appearance. Installation and rendering
-instructions will follow verified examples rather than an assumed universal setup.
+The current examples use Illustrate, Mol*, ChimeraX and FFmpeg. Blender remains optional and is not
+required for the demonstrated Goodsell-inspired appearance. Tested versions are observations;
+install current releases as described in the tool guides.
 
 ## Project notes
 
