@@ -4,6 +4,15 @@ Discover demonstrated capabilities in [TOOLS.md](TOOLS.md) and adapt the closest
 the human's request and [HUMAN_GUIDANCE.md](HUMAN_GUIDANCE.md). Existing examples are references;
 the agent chooses tools for the requested representation, science and delivery.
 
+Use the native Rust CLI from sibling `goodsell-oxillustrate-rs` as the canonical renderer and visual
+gold standard for Goodsell figures and animations. See [OXILLUSTRATE.md](tools/OXILLUSTRATE.md).
+Mol* remains the route for smooth surfaces and interactive views; existing hexokinase work stays
+unchanged. The initial Rust integration covers the 3N0G still and complete GroEL rotation. Adoption
+is a human decision, while rendered quality, fidelity and delivery remain separately checked.
+Expose an upstream gap with a bounded reproducer rather than silently switching renderer.
+Use current source as the authority for native framing semantics; retain one rotation origin,
+scale and depth-safe framing across frames, and disable trimming for exact animation dimensions.
+
 1. Identify the protein, experimental states or trajectory, biological assembly, intended teaching
    point and requested media. Verify primary structural records rather than trusting a familiar PDB
    identifier or an external LLM's recommendation.

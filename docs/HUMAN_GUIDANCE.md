@@ -13,8 +13,12 @@ origin belongs there too. Rules: [REPO_STYLE.md](REPO_STYLE.md).
 - I want to request animations in natural language and wait for the result, including examples
   such as hexokinase closing around glucose and a spinning GroEL.
 - I like the Janet Iwasa and David Goodsell appearance and want to achieve it with free,
-  open-source tools. A Rust port of Goodsell's Fortran renderer is an option worth considering.
+  open-source tools.
 - I find Blender powerful, but it can be unstable enough to require a reboot on my Mac.
 - Never pin dependency versions. Use current releases and open-ended `>=` minimums.
 
 - For the README motion preview, use animated WebP instead of GIF.
+
+- Use the sibling goodsell-oxillustrate-rs project as our gold standard method and canonical
+  renderer for Goodsell figures and animations. Start with stills and GroEL; retain Mol* for
+  surfaces and interactive views, and leave the existing hexokinase example unchanged.

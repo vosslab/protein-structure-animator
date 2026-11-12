@@ -6,6 +6,10 @@ references: [illustrative style](https://molstar.org/viewer-docs/tips/illustrati
 [source and license](https://github.com/molstar/molstar), and
 [movie export](https://molstar.org/viewer-docs/tips/movie-export/).
 
+For canonical Goodsell figures and animations, use [OXILLUSTRATE.md](OXILLUSTRATE.md). Mol* remains
+the route for smooth molecular surfaces and interactive views, and a retained rendering alternative.
+The existing hexokinase example and its native state handoff remain unchanged.
+
 ## Native browser invocation
 
 Install current npm dependencies and Playwright browsers using [TOOLS.md](../TOOLS.md).

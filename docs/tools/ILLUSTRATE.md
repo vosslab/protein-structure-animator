@@ -1,4 +1,8 @@
-# Illustrate
+# Illustrate historical reference
+
+This guide preserves the earlier Fortran comparison and its attribution. Use
+[OXILLUSTRATE.md](OXILLUSTRATE.md) for the canonical Goodsell renderer; compiling Fortran is not
+required for the default route. The commands and limitations below describe the historical run.
 
 Goodsell's Fortran renderer produces atom spheres, depth shading and black contours. It does not
 produce a solvent molecular surface. Upstream code is Apache-2.0; do not relabel or bundle it under
@@ -35,5 +39,6 @@ mmCIF. Illustrate's x axis points down the page and y points across; `zrot 90` m
 
 Upstream source inspected here allocates 350,000 coordinate slots and at most 3000 pixels per axis.
 Its legacy parser and one-character chain assumptions still need data-specific checking. The
-complete GroEL assembly is rendered directly from mmCIF in Mol*, avoiding a chain-renaming export.
-No Illustrate animation or GroEL conversion has been validated. A Rust port is deferred.
+earlier complete GroEL example used Mol* directly from mmCIF. No Fortran Illustrate animation or
+GroEL conversion was validated in that work. The Rust integration supersedes the former deferral;
+its separate evidence belongs to [OXILLUSTRATE.md](OXILLUSTRATE.md).

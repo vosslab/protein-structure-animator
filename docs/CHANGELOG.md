@@ -4,6 +4,15 @@
 
 ### Additions and New Features
 
+- Adopt sibling goodsell-oxillustrate-rs as the canonical Goodsell renderer and visual gold
+  standard, with an initial 3N0G still and complete GroEL rotation scope. Add the native-tool guide,
+  approved integration plan and evidence ledger; retain historical Mol*/Fortran reports and leave
+  existing hexokinase work unchanged. Refresh the static README proof to show native Rust GroEL
+  beside the unchanged Mol* hexokinase endpoints, with explicit attribution and the static image
+  first. Preserve the hexokinase animated WebP byte-identically. Add native JSON scenes, a small
+  GroEL CLI helper and focused geometry checks; retain per-frame scenes and measured dirty-source
+  provenance for the external binary.
+
 - Refresh the README as a newcomer landing page with completed-example proof, a verified GroEL
   quick start, scientific limits, and curated tool and evidence routes. Add a five-second, one-play
   hexokinase animated WebP and a static hexokinase/GroEL comparison; record assets, verification, and scoring
@@ -12,6 +21,14 @@
 
 ### Fixes and Maintenance
 
+- Close the accepted initial oxillustrate integration after fresh specification, independent quality
+  and integration PASS verdicts. Reconcile the ledger, clarify the GroEL protein-atom count and
+  archive [oxillustrate_integration.md](archive/oxillustrate_integration.md); preserve historical
+  reports and their separate evidence limits.
+
+- Let `TemporaryDirectory` choose the OS temporary location in the README capture helper; its
+  focused Bandit check passes and two captures preserve the source, assets, and README hashes.
+
 - Remove unused direct minimatch and override development-tool copies with the open-ended
   `>=11.0.8` minimum. Refresh the lock forward while preserving latest ESLint/typescript-eslint
   and both TypeScript aliases; npm audit now reports zero vulnerabilities.
@@ -19,6 +36,21 @@
   registry check; formatting and ESLint checks still pass without source changes.
 
 ### Developer Tests and Notes
+
+- Verify the native 3N0G still and all 125 GroEL scenes independently for selected atom identities,
+  coordinate fidelity, assembly and rotation/framing geometry. Fresh-process replay reproduces
+  every PNG, encoded media, poster and still byte-for-byte on this Mac. GroEL replay takes 54.08 s
+  and encoding 17.67 s; retain the source/build snapshot and measured limits in
+  [oxillustrate_render.md](active_plans/reports/oxillustrate_render.md) and
+  [oxillustrate_science.md](active_plans/reports/oxillustrate_science.md). Actual Chromium WebP,
+  GIF and MP4 motion, a natural MP4 loop and LibreOffice Impress MP4 slideshow motion pass for the
+  new Rust output. Exact Impress pacing and new WebP-in-Impress behavior remain unmeasured. Fresh
+  specification, quality and integration reviews passed. The full pytest run recorded 1,031 passed,
+  1 skipped and 2 existing failures; the later focused B108 fix passed separately. The unchanged
+  research-report Unicode failure remains; no fresh green full-suite result is claimed. Closeout
+  checks pass: 78 Markdown-link, README-opening and guidance-format tests, ASCII for seven
+  closeout documents, and working-tree/cached whitespace checks. Only the archived plan is staged;
+  no commit was made.
 
 - Verify the minimatch override through a clean scripts-disabled npm install, both compiler
   binaries, all three actual parent resolutions, ESLint traversal and ignore negation, and

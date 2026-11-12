@@ -28,10 +28,10 @@ ROOT = pathlib.Path(subprocess.run(
 BEGIN = "<!-- screenshots:begin (managed by screenshot-docs) -->"
 END = "<!-- screenshots:end -->"
 EMBEDS = (
+	"![Mol* hexokinase open and closed endpoints beside the Rust Goodsell fourteen-subunit GroEL]"
+	"(docs/screenshots/protein_examples.webp)\n"
 	"![Hexokinase closes and reopens around fixed magenta glucose in an interpolated preview]"
-	"(docs/screenshots/hexokinase_closure_demo.webp)\n"
-	"![Static hexokinase open and closed endpoints beside the complete fourteen-subunit GroEL]"
-	"(docs/screenshots/protein_examples.webp)"
+	"(docs/screenshots/hexokinase_closure_demo.webp)"
 )
 
 
@@ -67,13 +67,14 @@ def main() -> None:
 	readme = ROOT / "README.md"
 	updated_readme = update_readme(readme.read_text())
 	hex_frames = ROOT / "output/hexokinase_closure/frames"
-	groel = ROOT / "output/groel_rotation/frames/frame_000.png"
+	groel = ROOT / "output/groel_rotation_oxillustrate/frames/frame_000.png"
 	sources = [hex_frames / f"frame_{index:03d}.png" for index in range(125)] + [groel]
 	for source in sources:
 		if not source.is_file():
 			raise FileNotFoundError(
 				f"Missing {source.relative_to(ROOT)}; reproduce the example with the commands "
-				"in examples/hexokinase_closure/README.md and examples/groel_rotation/README.md."
+				"in examples/hexokinase_closure/README.md and the canonical Rust commands in "
+				"examples/groel_rotation/README.md."
 			)
 	if shutil.which("cwebp") is None:
 		raise RuntimeError("Install cwebp before capturing README visuals.")
@@ -84,7 +85,7 @@ def main() -> None:
 			if image.size != (640, 640):
 				raise ValueError(f"Expected a native 640 x 640 example frame: {source}")
 	assets = ROOT / "docs/screenshots"
-	with tempfile.TemporaryDirectory(prefix="protein_readme_", dir="/tmp") as temporary:
+	with tempfile.TemporaryDirectory(prefix="protein_readme_") as temporary:
 		work = pathlib.Path(temporary)
 		poster = PIL.Image.new("RGB", (1280, 800), "white")
 		for index, state in ((0, "open"), (62, "closed")):
@@ -98,8 +99,8 @@ def main() -> None:
 			assembly.thumbnail((600, 600))
 			poster.paste(assembly, (680, 125))
 		label(poster, (30, 30), "Experimental endpoints and a complete assembly", 33)
-		label(poster, (710, 105), "GroEL: fourteen subunits", 25)
-		label(poster, (30, 720), "Fixed glucose shown in magenta.", 23)
+		label(poster, (710, 105), "Rust Goodsell: GroEL (14 subunits)", 25)
+		label(poster, (30, 720), "Mol* surface; fixed glucose (magenta).", 23)
 		label(poster, (30, 755), "Protein motion is interpolated.", 23)
 		label(poster, (710, 720), "Assembly coordinates stay fixed.", 23)
 		label(poster, (710, 755), "Only the viewpoint rotates.", 23)

@@ -131,3 +131,22 @@ its encoded media after this fix before treating all outputs as final delivery.
 
 **Owner.** `examples/render_molstar.mjs` and the
 [render delivery report](active_plans/reports/render_delivery_verification.md).
+
+### Canonical Goodsell rendering
+
+**Decision.** Use the native CLI from sibling `goodsell-oxillustrate-rs` as the canonical renderer
+and visual gold standard for Goodsell figures and animations. First integration scope is the
+3N0G still and the complete GroEL rotation.
+
+**Why.** The human chose this route. Demonstration checks establish its implemented capabilities
+and delivery evidence; they do not reopen adoption as a renderer competition.
+
+**Consequence.** Build the current sibling checkout and invoke its external binary. Preserve native
+JSON scenes, original input hashes and observed source/binary provenance. Add no bindings, shared
+renderer framework or automatic fallback. Mol* serves surfaces, interactive work and retained
+alternatives; existing hexokinase work remains unchanged. Preserve Fortran reference attribution
+and historical evidence. The external AGPL-3.0-only binary is not bundled or relicensed here.
+
+**Owner.** [OXILLUSTRATE.md](tools/OXILLUSTRATE.md),
+[ANIMATION_GUIDANCE.md](ANIMATION_GUIDANCE.md) and the
+[oxillustrate integration plan](archive/oxillustrate_integration.md).

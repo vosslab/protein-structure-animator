@@ -10,7 +10,7 @@ no FFmpeg executable is bundled here.
 
 ```bash
 source source_me.sh && python3 tools/encode_loop.py output/hexokinase_closure/frames
-source source_me.sh && python3 tools/encode_loop.py output/groel_rotation/frames
+source source_me.sh && python3 tools/encode_loop.py output/groel_rotation_oxillustrate/frames
 ```
 
 [encode_loop.py](../../tools/encode_loop.py) requires exactly 125 contiguous, equally sized PNGs
@@ -22,6 +22,12 @@ The helper overwrites these generated media files in the frame directory's paren
 elsewhere. Keep the input frames and native sessions until delivery and reproduction checks pass.
 Modern FFmpeg versions can differ in animated WebP decoding; Pillow is also used to inspect frame
 count and per-frame durations. GIF palette conversion can introduce color changes and larger files.
+
+The canonical GroEL frames come from [OXILLUSTRATE.md](OXILLUSTRATE.md). The retained Mol*
+alternative uses `output/groel_rotation/frames`. New Rust media passed Chromium WebP, GIF and MP4
+motion checks, including a natural MP4 loop, and actual LibreOffice 26.2.7.3 MP4 slideshow motion.
+Exact Impress pacing and new animated WebP insertion were not tested. The GIF/blank-WebP Impress
+observations below describe the earlier Mol* outputs.
 
 ## Check each delivery separately
 

@@ -1,0 +1,24 @@
+{
+  "width": 640,
+  "height": 640,
+  "dpi": 300,
+  "trim": false,
+  "model": 1,
+  "assembly": null,
+  "orientation": [0, 0, 90],
+  "translation": [0, 0, 0],
+  "framing": {"center": null, "scale": null, "margin": 30},
+  "background": [1, 1, 1],
+  "atom_rules": [
+    {"selector": {"residue_name": "DST"}, "color": [0.8, 0.15, 0.65]},
+    {"selector": {"element": "Mg"}, "color": [0.31, 0.77, 0.48]},
+    {"selector": {"kind": "polymer"}, "color": [0.35, 0.62, 0.83]}
+  ],
+  "fog": {"color": [1, 1, 1], "front": 1, "back": 1},
+  "shadows": {"enabled": true, "decrement": 0.0023, "slope": 2,
+    "threshold": 1, "brightness_floor": 0.2},
+  "outlines": {"contour_enabled": true, "subunit_enabled": true,
+    "residue_enabled": true, "contour": {"low": 3, "high": 10},
+    "subunit": {"low": 3, "high": 10}, "residue": {"low": 3, "high": 8},
+    "kernel": 3, "depth_min": 0, "depth_max": 5, "residue_difference": 6000}
+}
