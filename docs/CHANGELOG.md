@@ -12,6 +12,10 @@
 - Record human guidance and the capability-collection design direction, including optional Blender
   use after reported Mac instability and a possible future Rust port of Illustrate.
 
+### Fixes and Maintenance
+
+- Synchronized shared style guides, tests, and repository support files from the starter template.
+
 ### Developer Tests and Notes
 
 - README paragraph and Markdown link checks: 33 passed; `git diff --check` passed.
