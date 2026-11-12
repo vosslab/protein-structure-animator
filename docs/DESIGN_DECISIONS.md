@@ -21,3 +21,16 @@ authoritative code or contract document, rather than a person.
 
 **Owner.** <the authoritative code or contract doc>
 ```
+
+### Documented capability collection
+
+**Decision.** Organize the project around accessible tools, reproducible examples, and agent
+guidance. Examples are adaptable references; the agent chooses how to combine capabilities.
+
+**Why.** The human explicitly prefers well-documented tools over designing a perfect workflow.
+
+**Consequence.** Select tools through concrete experiments. Keep Blender optional, and defer any
+universal orchestration framework or renderer interface until a demonstrated need exists.
+
+**Owner.** [HUMAN_GUIDANCE.md](HUMAN_GUIDANCE.md) and the
+[toolbox plan](active_plans/active/protein_animation_toolbox.md).
