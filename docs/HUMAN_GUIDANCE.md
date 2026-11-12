@@ -17,3 +17,4 @@ origin belongs there too. Rules: [REPO_STYLE.md](REPO_STYLE.md).
 - I find Blender powerful, but it can be unstable enough to require a reboot on my Mac.
 - Never pin dependency versions. Use current releases and open-ended `>=` minimums.
 
+- For the README motion preview, use animated WebP instead of GIF.

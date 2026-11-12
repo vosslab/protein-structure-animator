@@ -60,3 +60,15 @@ requirements uniformly as `>=latest`; it does not preserve npm aliases. Applying
 the `typescript` compatibility alias with the incompatible direct TypeScript requirement. Review
 and restore the documented aliases after any use of that helper. The helper and canonical
 TypeScript/ESLint configuration were preserved.
+
+## Minimatch resolution on 2026-11-12
+
+The earlier ten moderate findings above are historical. Removing the unused direct minimatch
+dependency and applying the open-ended root override `minimatch >=11.0.8` now gives a zero-finding
+npm audit. ESLint 10.14.0, typescript-eslint 8.72.2 and both TypeScript aliases remain current and
+unchanged. A fresh scripts-disabled `npm ci`, both compilers, actual ESLint traversal and
+ignore/negation matching, and typescript-eslint project-service matching pass. Canonical ESLint
+and Prettier pass; the shell gate still stops at its existing TS18003 empty lint inputs after
+passing the root typecheck. See [minimatch_remediation.md](../audits/minimatch_remediation.md)
+for exact commands, major-version compatibility rationale and evidence limits. Linter replacement
+was investigated separately; no migration was performed.

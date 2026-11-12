@@ -105,6 +105,20 @@ for tools that consume the compatibility alias.
 **Owner.** `package.json`, `package-lock.json` and
 [dependency verification](active_plans/reports/dependency_verification.md).
 
+### Override vulnerable development matching
+
+**Decision.** Remove unused direct minimatch and require `minimatch >=11.0.8` through a root npm
+override while retaining current ESLint, typescript-eslint and both TypeScript aliases.
+
+**Why.** Current parent ranges still select vulnerable v10; npm's forced remediation proposes
+downgrades. Their actual matching APIs pass focused v11 consumer checks and a clean installation.
+
+**Consequence.** This crosses parent major-version ranges. Reassess when current parents accept
+patched minimatch directly, and repeat consumer checks if an open-ended refresh changes its major.
+
+**Owner.** `package.json`, `package-lock.json` and
+[minimatch_remediation.md](active_plans/audits/minimatch_remediation.md).
+
 ### Set screenshot dimensions through Mol* state
 
 **Decision.** Set screenshot dimensions through Mol*'s native viewport values setter and verify the

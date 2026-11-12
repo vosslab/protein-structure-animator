@@ -1,5 +1,48 @@
 # Changelog
 
+## 2026-11-12
+
+### Additions and New Features
+
+- Refresh the README as a newcomer landing page with completed-example proof, a verified GroEL
+  quick start, scientific limits, and curated tool and evidence routes. Add a five-second, one-play
+  hexokinase animated WebP and a static hexokinase/GroEL comparison; record assets, verification, and scoring
+  in the visual-refresh report. Encode the README preview directly at quality 90 and retire only
+  its superseded managed GIF; full example GIF exports remain available.
+
+### Fixes and Maintenance
+
+- Remove unused direct minimatch and override development-tool copies with the open-ended
+  `>=11.0.8` minimum. Refresh the lock forward while preserving latest ESLint/typescript-eslint
+  and both TypeScript aliases; npm audit now reports zero vulnerabilities.
+- Refresh Prettier to current 3.10.1 with an open-ended `>=3.10.1` minimum after a fresh
+  registry check; formatting and ESLint checks still pass without source changes.
+
+### Developer Tests and Notes
+
+- Verify the minimatch override through a clean scripts-disabled npm install, both compiler
+  binaries, all three actual parent resolutions, ESLint traversal and ignore negation, and
+  typescript-eslint project-service matching. Canonical ESLint and Prettier pass. The shell
+  check passes its root typecheck, then retains its existing TS18003 empty lint-input failure.
+  Record commands and evidence limits in
+  [minimatch_remediation.md](active_plans/audits/minimatch_remediation.md); linter alternatives
+  remain a separate read-only investigation with no migration.
+- Final specification, quality, and integration reviews passed for the recorded D1/D2 state. The
+  integration review checked the dependency/configuration records and evidence boundaries; it did
+  not rerun installation, registry checks, the full shell gate, rendering, playback, or the full
+  suite.
+
+- Independent README specification review passed at 96/100 for the current WebP state. The reviewer
+  inspected both assets and relied on the capture receipt for playback and repeat-capture evidence;
+  rendering and browser playback were not rerun. The clean-install score deduction remains. The
+  independent README quality review also passed with no actionable defects; one import-order note
+  remains nonblocking. It did not rerun rendering, playback, clean installation, Impress, or the
+  full suite. The fresh integration review passed with no blockers; it checked content, assets,
+  hashes, metadata, score arithmetic, and record consistency, but did not rerun capture, rendering,
+  playback, clean installation, or the full suite. Final receipt checks passed: 65 focused Markdown,
+  README-opening, and guidance-format tests; ASCII checks for the README, human guidance, changelog,
+  and four review/refresh reports; and `git diff --check`.
+
 ## 2026-11-11
 
 ### Additions and New Features
