@@ -75,7 +75,8 @@ def main(session: object) -> None:
 			(opened.atoms.residues.numbers >= 250) & (opened.atoms.residues.numbers <= 450)),
 			each='coordset', log_info=False)
 		for coordset_id in ids:
-			coords = trajectory.coordset(coordset_id).xyzs.copy()
+			trajectory.active_coordset_id = coordset_id
+			coords = trajectory.atoms.coords.copy()
 			frames.append(coords[order] if trajectory is backward else coords)
 	forward.remove_coordsets()
 	forward.add_coordsets(numpy.array(frames), replace=True)
