@@ -2,18 +2,77 @@
 
 Reproducible native-tool workflows for protein illustrations and teaching animations, with structural choices, editable sources, and playback evidence documented.
 
-Use the sibling goodsell-oxillustrate-rs native Rust renderer as the canonical renderer and visual gold standard for Goodsell figures and animations. The first integration covers the 3N0G still and complete GroEL rotation; its rendering, replay and independent scientific evidence are tracked separately from the accepted earlier toolbox examples. Mol* remains available for smooth surfaces and interactive views. The existing hexokinase interpolation stays unchanged.
-
-## Screenshots
-
-The hexokinase source animation illustrates closure and reopening around a fixed, experimentally positioned glucose pose. Its 125 distinct source frames at 25 fps make a five-second loop; the motion is endpoint interpolation, not a physical binding path or kinetics model. The static comparison pairs those Mol* hexokinase endpoints with the canonical Rust Goodsell GroEL view of all fourteen chains. GroEL changes viewpoint only. The README animated WebP is the unchanged one-play, reduced-rate hexokinase preview.
+Use the sibling goodsell-oxillustrate-rs native Rust renderer for canonical Goodsell figures and
+animations, and Mol* for smooth molecular surfaces and interactive views.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
-![Mol* hexokinase open and closed endpoints beside the Rust Goodsell fourteen-subunit GroEL](docs/screenshots/protein_examples.webp)
-![Hexokinase closes and reopens around fixed magenta glucose in an interpolated preview](docs/screenshots/hexokinase_closure_demo.webp)
+## Animation gallery
+
+### GroEL: see the assembly
+
+<a href="examples/groel_rotation/README.md">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)"
+      srcset="docs/screenshots/groel_rotation_poster.webp">
+    <img src="docs/screenshots/groel_rotation_demo.webp" width="640"
+      alt="Rust Goodsell view rotates the complete fourteen-subunit GroEL assembly">
+  </picture>
+</a>
+
+The complete fourteen-subunit chaperonin provides a compartment for protein folding. This
+**16:9 widescreen** Rust Goodsell loop changes viewpoint only; it shows neither GroES nor a folding
+cycle.
+Try: "Rotate the complete GroEL assembly once, keeping the chain colors and white background."
+Reproduce: [examples/groel_rotation/README.md](examples/groel_rotation/README.md) |
+[Static poster](docs/screenshots/groel_rotation_poster.webp).
+
+### Hexokinase: see the closure
+
+<a href="examples/hexokinase_closure/README.md">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)"
+      srcset="docs/screenshots/hexokinase_closure_poster.webp">
+    <img src="docs/screenshots/hexokinase_closure_loop.webp" width="240"
+      alt="Mol* transparent hexokinase surface closes and reopens around fixed magenta glucose">
+  </picture>
+</a>
+
+Hexokinase's lobes close around glucose: a teaching illustration of induced fit. This **phone-style
+portrait** Mol* loop interpolates experimental protein endpoints around a fixed, staged glucose
+pose; it is not a measured binding path or a catalytic cycle.
+Try: "Show hexokinase closing and reopening, with glucose visible through the surface."
+Reproduce: [examples/hexokinase_closure/README.md](examples/hexokinase_closure/README.md) |
+[Static poster](docs/screenshots/hexokinase_closure_poster.webp).
+
+Both previews loop continuously over five seconds. Reduced-motion preferences select the matching
+static posters; the poster links also work independently.
+
+### Appearance options
+
+These **static 3N0G stills** compare representation choices for the same isoprene synthase example.
+Choose spheres for atom detail or a smooth surface for overall shape.
+
+<p>
+  <a href="examples/appearance_3n0g/README.md"><img
+    src="examples/appearance_3n0g/oxillustrate_preview.webp" width="240"
+    alt="Rust oxillustrate: canonical Goodsell atom spheres"></a>
+  <a href="examples/appearance_3n0g/README.md"><img
+    src="examples/appearance_3n0g/molstar_spacefill.webp" width="240"
+    alt="Mol*: illustrated atom spheres"></a>
+  <a href="examples/appearance_3n0g/README.md"><img
+    src="examples/appearance_3n0g/molstar_surface.webp" width="240"
+    alt="Mol*: smooth molecular surface"></a>
+</p>
+
+In order: **Rust oxillustrate spheres** (canonical Goodsell), **Mol\* spheres**,
+**Mol\* smooth surface**. Blue protein, contrasting ligand and magnesium retain the example palette.
+
+Reproduce: [examples/appearance_3n0g/README.md](examples/appearance_3n0g/README.md).
 <!-- screenshots:end -->
 
-The [Rust capture record](docs/active_plans/reports/oxillustrate_capture.md) documents the refreshed static proof and byte-identical hexokinase preview. New Rust GroEL media passed actual Chromium WebP/GIF/MP4 playback and LibreOffice Impress MP4 slideshow motion checks. Earlier Mol* outputs also passed browser GIF/MP4/WebP and Impress GIF/MP4 checks; their animated WebP inserted as an ODP image was blank. That older WebP limitation was not retested for Rust media. Exact Impress frame timing was not measured.
+The [gallery capture record](docs/active_plans/reports/animation_gallery_capture.md) records preview
+framing, timing and source preservation. Full-quality example deliveries remain 640 x 640 at 25 fps;
+these README previews use smaller, fixed-aspect canvases at 12 fps.
 
 ## What you can make
 
@@ -40,15 +99,18 @@ source source_me.sh && python3 examples/groel_rotation/render_oxillustrate.py
 source source_me.sh && python3 tools/encode_loop.py output/groel_rotation_oxillustrate/frames
 ```
 
-The verified Rust run writes `output/groel_rotation_oxillustrate/`, with `animation.mp4`, `animation.gif`, `animation.webp`, `poster.webp`, 125 PNG frames and editable native JSON scenes. The verified render is 640 x 640 pixels and five seconds at 25 fps. A fresh-process replay reproduced the frames and media byte-for-byte on this Mac; rendering took 54.08 seconds and encoding 17.67 seconds. Independent native identity and geometry checks pass. Chromium playback of WebP, GIF and MP4, including a natural MP4 loop, and actual Impress MP4 slideshow motion passed. Fresh specification, quality and integration reviews passed; separate evidence and limits remain in the [integration ledger](docs/active_plans/workstreams/oxillustrate_integration.md). Downloaded input hashes are checked by the download script. Dependency minimums are open-ended; tested revisions and versions are observations, not pins.
+The verified Rust run writes `output/groel_rotation_oxillustrate/`, with `animation.mp4`,
+`animation.gif`, `animation.webp`, `poster.webp`, 125 PNG frames and editable native JSON scenes.
+The full-quality render is 640 x 640 pixels and five seconds at 25 fps. Downloaded input hashes are
+checked by the download script. Fresh-process replay, structural checks and application playback
+evidence are recorded separately in the
+[integration ledger](docs/active_plans/workstreams/oxillustrate_integration.md).
 
 ## Choose an example
 
 - [GroEL rotation](examples/groel_rotation/README.md): render the complete biological assembly and inspect its structural selections and rotation.
 - [Hexokinase closure](examples/hexokinase_closure/README.md): prepare matched experimental structures with ChimeraX, then render the explicitly interpolated teaching illustration.
 - [3N0G appearance comparison](examples/appearance_3n0g/README.md): render the canonical Rust still alongside the historical Fortran and Mol* comparison.
-
-For example, a request that fits the current collection is: "Show the complete GroEL assembly rotating once, with the chain colors and white background used in the documented example, and save editable native JSON scenes plus MP4 and GIF." The GroEL example changes the camera viewpoint only; it does not depict a conformational cycle.
 
 ## Guides and evidence
 
@@ -65,7 +127,11 @@ For example, a request that fits the current collection is: "Show the complete G
 
 The GroEL quick start needs Rust/Cargo for the external renderer build, Python 3 with declared dependencies, and FFmpeg. Node.js and Playwright Chromium are needed for the retained Mol* route. The appearance and hexokinase examples need their separately documented tools. ChimeraX is distributed under separate terms that distinguish noncommercial and commercial use; check its current license for your use. No external application is bundled. Tested versions and specific software behavior are recorded in the examples and reports.
 
-The hexokinase illustration places closed-state glucose in the open-state structure, where a short contact is documented; its intermediate conformations are geometric constructs. GroEL shows the deposited construct and a viewpoint rotation, not folding dynamics. The earlier Mol* animated WebP did not display through the tested Impress image insertion route. Read each example's structure and limitation notes before reusing its media scientifically.
+The hexokinase illustration places closed-state glucose in the open-state structure, where a short
+contact is documented; its intermediate conformations are geometric constructs. GroEL shows the
+deposited construct and a viewpoint rotation. Use MP4 for the verified Impress slideshow route;
+earlier Mol* animated WebP image insertion was blank. Read each example's structure and limitation
+notes before reusing its media scientifically.
 
 ## Licenses
 

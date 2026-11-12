@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Refresh README proof from rendered examples; run after the example README commands.
+"""Refresh the README gallery from verified native example frames.
 
 Run: source source_me.sh && python3 devel/capture_readme_visuals.py
-Requires the declared Pillow dependency with WebP support and cwebp on PATH. Molecular frames are
-only cropped to remove white margins or reduced, never enlarged or re-rendered here.
+Requires the declared Pillow dependency with WebP support and cwebp on PATH. Each clip keeps
+one fixed canvas and framing; molecular images are never enlarged or re-rendered here.
 """
 
 # Standard Library
@@ -17,8 +17,7 @@ import subprocess
 # PIP3 modules
 import PIL.Image
 import PIL.features
-import PIL.ImageDraw
-import PIL.ImageFont
+import PIL.ImageChops
 
 # ASVS 5.3.2: generated paths are fixed relative to this repository.
 ROOT = pathlib.Path(subprocess.run(
@@ -27,28 +26,68 @@ ROOT = pathlib.Path(subprocess.run(
 ).stdout.strip())
 BEGIN = "<!-- screenshots:begin (managed by screenshot-docs) -->"
 END = "<!-- screenshots:end -->"
-EMBEDS = (
-	"![Mol* hexokinase open and closed endpoints beside the Rust Goodsell fourteen-subunit GroEL]"
-	"(docs/screenshots/protein_examples.webp)\n"
-	"![Hexokinase closes and reopens around fixed magenta glucose in an interpolated preview]"
-	"(docs/screenshots/hexokinase_closure_demo.webp)"
-)
+GALLERY = '''## Animation gallery
 
+### GroEL: see the assembly
 
-#============================================
-def label(image: PIL.Image.Image, xy: tuple[int, int], text: str, size: int) -> None:
-	"""Draw readable annotation using Pillow's bundled font."""
-	PIL.ImageDraw.Draw(image).text(
-		xy, text, font=PIL.ImageFont.load_default(size=size), fill="#18374c",
-	)
+<a href="examples/groel_rotation/README.md">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)"
+      srcset="docs/screenshots/groel_rotation_poster.webp">
+    <img src="docs/screenshots/groel_rotation_demo.webp" width="640"
+      alt="Rust Goodsell view rotates the complete fourteen-subunit GroEL assembly">
+  </picture>
+</a>
 
+The complete fourteen-subunit chaperonin provides a compartment for protein folding. This
+**16:9 widescreen** Rust Goodsell loop changes viewpoint only; it shows neither GroES nor a folding
+cycle.
+Try: "Rotate the complete GroEL assembly once, keeping the chain colors and white background."
+Reproduce: [examples/groel_rotation/README.md](examples/groel_rotation/README.md) |
+[Static poster](docs/screenshots/groel_rotation_poster.webp).
 
-#============================================
-def hexokinase(frame_path: pathlib.Path) -> PIL.Image.Image:
-	"""Remove only the empty margins surrounding the protein and glucose."""
-	with PIL.Image.open(frame_path) as image:
-		# shortcut: fixed camera margins; review this crop when the example camera changes.
-		return image.convert("RGB").crop((165, 50, 510, 580))
+### Hexokinase: see the closure
+
+<a href="examples/hexokinase_closure/README.md">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)"
+      srcset="docs/screenshots/hexokinase_closure_poster.webp">
+    <img src="docs/screenshots/hexokinase_closure_loop.webp" width="240"
+      alt="Mol* transparent hexokinase surface closes and reopens around fixed magenta glucose">
+  </picture>
+</a>
+
+Hexokinase's lobes close around glucose: a teaching illustration of induced fit. This **phone-style
+portrait** Mol* loop interpolates experimental protein endpoints around a fixed, staged glucose
+pose; it is not a measured binding path or a catalytic cycle.
+Try: "Show hexokinase closing and reopening, with glucose visible through the surface."
+Reproduce: [examples/hexokinase_closure/README.md](examples/hexokinase_closure/README.md) |
+[Static poster](docs/screenshots/hexokinase_closure_poster.webp).
+
+Both previews loop continuously over five seconds. Reduced-motion preferences select the matching
+static posters; the poster links also work independently.
+
+### Appearance options
+
+These **static 3N0G stills** compare representation choices for the same isoprene synthase example.
+Choose spheres for atom detail or a smooth surface for overall shape.
+
+<p>
+  <a href="examples/appearance_3n0g/README.md"><img
+    src="examples/appearance_3n0g/oxillustrate_preview.webp" width="240"
+    alt="Rust oxillustrate: canonical Goodsell atom spheres"></a>
+  <a href="examples/appearance_3n0g/README.md"><img
+    src="examples/appearance_3n0g/molstar_spacefill.webp" width="240"
+    alt="Mol*: illustrated atom spheres"></a>
+  <a href="examples/appearance_3n0g/README.md"><img
+    src="examples/appearance_3n0g/molstar_surface.webp" width="240"
+    alt="Mol*: smooth molecular surface"></a>
+</p>
+
+In order: **Rust oxillustrate spheres** (canonical Goodsell), **Mol\\* spheres**,
+**Mol\\* smooth surface**. Blue protein, contrasting ligand and magnesium retain the example palette.
+
+Reproduce: [examples/appearance_3n0g/README.md](examples/appearance_3n0g/README.md).'''
 
 
 #============================================
@@ -58,95 +97,84 @@ def update_readme(text: str) -> str:
 		raise ValueError("README must contain exactly one screenshot sentinel pair.")
 	before, remainder = text.split(BEGIN)
 	_, after = remainder.split(END)
-	return f"{before}{BEGIN}\n{EMBEDS}\n{END}{after}"
+	return f"{before}{BEGIN}\n{GALLERY}\n{END}{after}"
+
+
+#============================================
+def framed_image(
+	path: pathlib.Path, size: tuple[int, int], crop: tuple[int, int, int, int] | None,
+) -> PIL.Image.Image:
+	"""Fit a source into one fixed canvas, preserving its proportions and white margins."""
+	with PIL.Image.open(path) as image:
+		if image.size != (640, 640):
+			raise ValueError(f"Expected a native 640 x 640 example frame: {path}")
+		protein = image.convert("RGB")
+	if crop is not None:
+		# shortcut: fixed camera margins; review the crop when the example camera changes.
+		bounds = PIL.ImageChops.difference(
+			protein, PIL.Image.new("RGB", protein.size, "white"),
+		).getbbox()
+		if bounds and any((
+			bounds[0] < crop[0], bounds[1] < crop[1],
+			bounds[2] > crop[2], bounds[3] > crop[3],
+		)):
+			raise ValueError(f"Fixed gallery crop would remove visible content: {path}")
+		protein = protein.crop(crop)
+	protein.thumbnail(size, PIL.Image.Resampling.LANCZOS)
+	frame = PIL.Image.new("RGB", size, "white")
+	frame.paste(protein, ((size[0] - protein.width) // 2, (size[1] - protein.height) // 2))
+	return frame
 
 
 #============================================
 def main() -> None:
-	"""Compose source-frame proof, encode final assets, and refresh managed embeds."""
+	"""Encode two fixed-aspect loops and their posters, then refresh the managed gallery."""
 	readme = ROOT / "README.md"
 	updated_readme = update_readme(readme.read_text())
-	hex_frames = ROOT / "output/hexokinase_closure/frames"
-	groel = ROOT / "output/groel_rotation_oxillustrate/frames/frame_000.png"
-	sources = [hex_frames / f"frame_{index:03d}.png" for index in range(125)] + [groel]
-	for source in sources:
-		if not source.is_file():
-			raise FileNotFoundError(
-				f"Missing {source.relative_to(ROOT)}; reproduce the example with the commands "
-				"in examples/hexokinase_closure/README.md and the canonical Rust commands in "
-				"examples/groel_rotation/README.md."
-			)
 	if shutil.which("cwebp") is None:
 		raise RuntimeError("Install cwebp before capturing README visuals.")
 	if not PIL.features.check("webp"):
 		raise RuntimeError("Install Pillow with WebP support before capturing README visuals.")
-	for source in sources:
-		with PIL.Image.open(source) as image:
-			if image.size != (640, 640):
-				raise ValueError(f"Expected a native 640 x 640 example frame: {source}")
+	# Sample the five-second source uniformly without duplicating the loop endpoint.
+	indices = [round(index * 125 / 60) for index in range(60)]
+	durations = [round((index + 1) * 1000 / 12) - round(index * 1000 / 12)
+		for index in range(60)]
 	assets = ROOT / "docs/screenshots"
 	with tempfile.TemporaryDirectory(prefix="protein_readme_") as temporary:
 		work = pathlib.Path(temporary)
-		poster = PIL.Image.new("RGB", (1280, 800), "white")
-		for index, state in ((0, "open"), (62, "closed")):
-			x = 20 if index == 0 else 350
-			protein = hexokinase(hex_frames / f"frame_{index:03d}.png")
-			protein.thumbnail((310, 560))
-			poster.paste(protein, (x, 160))
-			label(poster, (x, 105), f"Hexokinase: {state}", 25)
-		with PIL.Image.open(groel) as image:
-			assembly = image.convert("RGB")
-			assembly.thumbnail((600, 600))
-			poster.paste(assembly, (680, 125))
-		label(poster, (30, 30), "Experimental endpoints and a complete assembly", 33)
-		label(poster, (710, 105), "Rust Goodsell: GroEL (14 subunits)", 25)
-		label(poster, (30, 720), "Mol* surface; fixed glucose (magenta).", 23)
-		label(poster, (30, 755), "Protein motion is interpolated.", 23)
-		label(poster, (710, 720), "Assembly coordinates stay fixed.", 23)
-		label(poster, (710, 755), "Only the viewpoint rotates.", 23)
-		poster.save(work / "poster.png")
-		# ASVS 1.2.5: pass command arguments directly, without a shell interpreter.
-		subprocess.run([
-			"cwebp", "-quiet", "-q", "90", str(work / "poster.png"),
-			"-o", str(work / "protein_examples.webp"),
-		], check=True)
-		# Hold the source endpoints briefly while keeping the full close/reopen sequence.
-		indices = [0] * 3 + [round(index * 124 / 53) for index in range(54)] + [124] * 3
-		frames = []
-		for index in indices:
-			frame = PIL.Image.new("RGB", (960, 600), "white")
-			protein = hexokinase(hex_frames / f"frame_{index:03d}.png")
-			protein.thumbnail((500, 530))
-			frame.paste(protein, (545, 35))
-			label(frame, (35, 100), "Hexokinase", 36)
-			label(frame, (35, 155), "Open > closed > open", 25)
-			label(frame, (35, 240), "Experimental endpoints", 22)
-			label(frame, (35, 280), "Interpolated protein motion", 22)
-			label(frame, (35, 320), "Fixed glucose pose (magenta)", 22)
-			label(frame, (35, 360), "Transparent molecular surface", 22)
-			label(frame, (35, 500), "One play / 5 seconds", 22)
-			frames.append(frame)
-		# WebP loop=1 is one play; integer millisecond delays preserve exactly five seconds.
-		frames[0].save(
-			work / "hexokinase_closure_demo.webp", save_all=True, append_images=frames[1:],
-			quality=90, loop=1,
-			duration=[round((index + 1) * 1000 / 12) - round(index * 1000 / 12)
-				for index in range(len(frames))],
-		)
-		assets.mkdir(exist_ok=True)
-		for name in ("protein_examples.webp", "hexokinase_closure_demo.webp"):
-			shutil.copyfile(work / name, assets / name)
+		for example, animation, size, crop in (
+			("groel_rotation_oxillustrate", "groel_rotation_demo", (640, 360), None),
+			("hexokinase_closure", "hexokinase_closure_loop", (360, 780), (165, 50, 510, 580)),
+		):
+			directory = ROOT / "output" / example / "frames"
+			sources = [directory / f"frame_{index:03d}.png" for index in range(125)]
+			# Validate every frame, including those omitted from the smaller preview.
+			frames = []
+			for index, source in enumerate(sources):
+				frame = framed_image(source, size, crop)
+				if index in indices:
+					frames.append(frame)
+			poster = animation.rsplit("_", 1)[0] + "_poster.webp"
+			animation += ".webp"
+			frames[0].save(
+				work / animation, save_all=True, append_images=frames[1:],
+				quality=90, loop=0, duration=durations,
+			)
+			frames[0].save(work / "poster.png")
+			# ASVS 1.2.5: pass command arguments directly, without a shell interpreter.
+			subprocess.run([
+				"cwebp", "-quiet", "-q", "90", str(work / "poster.png"),
+				"-o", str(work / poster),
+			], check=True)
+			assets.mkdir(exist_ok=True)
+			for name in (animation, poster):
+				shutil.copyfile(work / name, assets / name)
+				print(f"Wrote docs/screenshots/{name} ({(assets / name).stat().st_size} bytes)")
+			digest = hashlib.sha256(b"".join(source.read_bytes() for source in sources)).hexdigest()
+			print(f"Source SHA256 (125 frames): {directory.relative_to(ROOT)} {digest}")
 	if readme.read_text() != updated_readme:
 		readme.write_text(updated_readme)
 	print(f"Captured {datetime.datetime.now(datetime.UTC).isoformat()}")
-	for directory in (hex_frames, groel.parent):
-		selected = [source for source in sources if source.parent == directory]
-		# ASVS 11.4.1: source provenance uses a SHA-256 checksum.
-		digest = hashlib.sha256(b"".join(source.read_bytes() for source in selected)).hexdigest()
-		print(f"Source SHA256 ({len(selected)} frames): {directory.relative_to(ROOT)} {digest}")
-	for name in ("protein_examples.webp", "hexokinase_closure_demo.webp"):
-		path = assets / name
-		print(f"Wrote {path.relative_to(ROOT)} ({path.stat().st_size} bytes)")
 
 
 if __name__ == "__main__":

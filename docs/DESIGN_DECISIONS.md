@@ -22,6 +22,22 @@ authoritative code or contract document, rather than a person.
 **Owner.** <the authoritative code or contract doc>
 ```
 
+### Fixed-aspect README motion previews
+
+**Decision.** Present existing verified examples as continuous five-second WebP previews, each
+with one fixed aspect and a matching reduced-motion poster: widescreen GroEL and phone-style
+portrait hexokinase. Retain molecular proportions and downsize-only fixed framing.
+
+**Why.** The human requested looping examples and varied protein-appropriate canvas shapes, with
+exactly one aspect per video.
+
+**Consequence.** The gallery derives lightweight presentation assets from existing native frames.
+Scientific motion, source coordinates, native rendering and full-quality deliveries stay owned by
+the original examples; the gallery adds no molecular or renderer capability claim.
+
+**Owner.** [animation_gallery.md](archive/animation_gallery.md) and
+[capture_readme_visuals.py](../devel/capture_readme_visuals.py).
+
 ### Documented capability collection
 
 **Decision.** Organize the project around accessible tools, reproducible examples, and agent

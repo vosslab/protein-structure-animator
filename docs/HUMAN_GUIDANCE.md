@@ -19,6 +19,11 @@ origin belongs there too. Rules: [REPO_STYLE.md](REPO_STYLE.md).
 
 - For the README motion preview, use animated WebP instead of GIF.
 
+- Show the existing verified animation examples in the README and let their previews loop
+  continuously.
+- Not all animations should be square: a phone-style portrait or 16:9 widescreen can suit the
+  protein. Use only one aspect per video, with some proteins tall and others wide.
+
 - Use the sibling goodsell-oxillustrate-rs project as our gold standard method and canonical
   renderer for Goodsell figures and animations. Start with stills and GroEL; retain Mol* for
   surfaces and interactive views, and leave the existing hexokinase example unchanged.

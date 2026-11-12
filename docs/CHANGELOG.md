@@ -4,6 +4,13 @@
 
 ### Additions and New Features
 
+- Add a README animation gallery with continuous five-second Rust GroEL and Mol* hexokinase
+  WebP previews, fixed widescreen and phone-style portrait canvases, and matching reduced-motion
+  posters. Follow the loops with three static 3N0G appearance options. Reuse verified PNGs without
+  changing molecular inputs or full-quality deliveries; preserve earlier README assets for their
+  historical reports. Record capture and completed independent checks in
+  [animation_gallery_capture.md](active_plans/reports/animation_gallery_capture.md).
+
 - Adopt sibling goodsell-oxillustrate-rs as the canonical Goodsell renderer and visual gold
   standard, with an initial 3N0G still and complete GroEL rotation scope. Add the native-tool guide,
   approved integration plan and evidence ledger; retain historical Mol*/Fortran reports and leave
@@ -21,6 +28,15 @@
 
 ### Fixes and Maintenance
 
+- Close the accepted README animation gallery after fresh specification, independent quality and
+  integration PASS verdicts. Reconcile historical caption findings with the correction addendum,
+  archive [animation_gallery.md](archive/animation_gallery.md), and remove only its two disposable
+  Python checks. Preserve the frozen README, helper, previews and all historical media.
+
+- Correct the README gallery's bold Mol* labels, wrapping-row legend and reproduction link labels.
+  Two corrected captures preserve every preview byte; fresh GitHub sanitation and desktop/narrow
+  caption checks pass, along with 76 focused Python checks, pyflakes and Bandit.
+
 - Close the accepted initial oxillustrate integration after fresh specification, independent quality
   and integration PASS verdicts. Reconcile the ledger, clarify the GroEL protein-atom count and
   archive [oxillustrate_integration.md](archive/oxillustrate_integration.md); preserve historical
@@ -36,6 +52,16 @@
   registry check; formatting and ESLint checks still pass without source changes.
 
 ### Developer Tests and Notes
+
+- The corrected animation gallery's full Python lane records 1,109 passed, 1 skipped and the
+  existing Unicode failure in the research report, whose bytes remain unchanged from HEAD.
+  Gallery correction files pass ASCII and whitespace checks; fresh specification, quality and
+  integration reviews pass in [animation_gallery.md](active_plans/workstreams/animation_gallery.md).
+  These historical counts precede temporary-check cleanup; no new full-suite result is claimed.
+  Closeout checks cover 85 focused cases: 84 passed initially, then the one stale archive-link case
+  passed after correction. Eight closeout documents pass ASCII; working-tree/cached whitespace
+  checks and frozen README/helper/four-asset hashes pass. Only the archived plan is staged; no
+  commit or publication was made.
 
 - Verify the native 3N0G still and all 125 GroEL scenes independently for selected atom identities,
   coordinate fidelity, assembly and rotation/framing geometry. Fresh-process replay reproduces
